@@ -1,0 +1,32 @@
+@startuml
+
+object StreamingService
+object Menu
+object StartMenu
+object User
+object RegularUser
+object MainMenu
+object TextUI
+object FileIO
+object IO
+object Media
+object Movie
+object Series
+
+StreamingService *-- Menu
+Menu <|-- StartMenu
+Menu <|-- MainMenu
+Menu *-- TextUI
+StartMenu *-- IO
+MainMenu *-- IO
+IO <|-- FileIO
+StartMenu o-- User
+MainMenu *-- User
+User <|-- RegularUser
+MainMenu o-- Media
+User o-- Media
+Media <|-- Movie
+Media <|-- Series
+
+
+@enduml

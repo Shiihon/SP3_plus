@@ -1,0 +1,109 @@
+@startuml
+class Main
+class StreamingService
+interface Menu
+class StartMenu
+class MainMenu
+interface User
+abstract class AUser
+class RegularUser
+interface Media
+abstract class AMedia
+class Movie
+class Series
+interface IO
+class FileIO
+class TextUI
+
+Main *-- StreamingService
+StreamingService *-- Menu
+Menu <|-- StartMenu
+Menu <|-- MainMenu
+Menu *-- TextUI
+StartMenu *-- IO
+MainMenu *-- IO
+IO <|-- FileIO
+StartMenu o-- User
+MainMenu *-- User
+User <|-- AUser
+AUser <|-- RegularUser
+MainMenu o-- Media
+User o-- Media
+Media <|-- AMedia
+AMedia <|-- Movie
+AMedia <|-- Series
+
+
+Main : + static void main(string [] args)
+
+
+StreamingService : + void start()
+StreamingService : + void loop()
+StreamingService : + void end()
+
+
+Menu : + void setup()
+
+
+StartMenu : - Map <String "userName", String "Password"> users
+
+StartMenu : - boolean login( String "userName", String "Password")
+StartMenu : - boolean registerUser ( String "userName", String "Password")
+StartMenu : - void runUserDialog()
+StartMenu : - void loadUserData(String userName)
+StartMenu : + void loadUsers()
+StartMenu : + void saveUsers()
+
+
+MainMenu : - ArrayList <Media> medias
+
+MainMenu : - Media search(String name)
+MainMenu : - Media[] searchCategory(String category)
+MainMenu : - void showUserWatchedList()
+MainMenu : - void showUserFavoriteLit()
+MainMenu : - void runMainMenuLoop()
+MainMenu : - void chooseMedia(Media media)
+MainMenu : - boolean addToFavorits(Media media)
+MainMenu : - boolean removeToFavorits(Media media)
+MainMenu : - void logout()
+MainMenu : + void addMedia(Media media) ?
+MainMenu : + void removeMedia(Media media) ?
+MainMenu : + void loadMedia()
+
+
+User : + String getUserName()
+User : + List <Media> getWatchedList()
+User : + List <Media> getFavoriteList()
+
+
+AUser : - String userName
+AUser : - String password
+AUser : - List <Media> watchedMedia
+AUser : - List <Media> favorites
+Media : + String getName()
+Media : + float getRating()
+Media : + int getReleasYears()
+Media : + ArrayList<String> getCategories()
+Media : + void play()
+
+AMedia : - String name
+AMedia : - float rating
+AMedia : - int releasYear
+AMedia : - ArrayList<String> categories
+AMedia : + @Override String toString()
+
+Series : - int endYear
+Series : - Map<Integer, Integer> seasons
+Series : + Map <Integer, Integer> getSeasons()
+Series : + int getEndYear()
+Series : + String toString()
+
+
+IO : + ArrayList <String> readData(String path)
+IO : + void saveData(String path, ArrayList<Media> medias)
+
+TextUI : - Scanner scanner;
+TextUI : + String getInput(String msg)
+TextUI : + void displayMsg(String msg)
+
+@enduml
