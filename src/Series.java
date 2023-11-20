@@ -1,6 +1,6 @@
 import java.util.Map;
 
-public class Series {
+public class Series extends AMedia {
 
     private int endYear;
     private Map<Integer,Integer> seasons;
