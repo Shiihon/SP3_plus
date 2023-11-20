@@ -1,5 +1,8 @@
-import javax.swing.plaf.TextUI;
 
 public abstract class AMenu implements Menu {
-    private TextUI ui;
+    private final TextUI ui;
+
+    public AMenu() {
+        ui = new TextUI();
+    }
 }

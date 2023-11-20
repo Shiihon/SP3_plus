@@ -2,10 +2,10 @@ import java.util.ArrayList;
 
 public interface Media
 {
-    public String getName();
-    public float getRating();
-    public  int getReleasYears();
-    public ArrayList <String> getCategories();
-    public void play();
+    String getName();
+    float getRating();
+    int getReleasYears();
+    ArrayList <String> getCategories();
+    void play();
 
 }

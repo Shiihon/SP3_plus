@@ -1,17 +1,22 @@
+import java.util.HashMap;
 import java.util.Map;
 
 public class StartMenu  extends AMenu {
 
-    Map<String, String > users;
+    private final Map<String, String > users;
 
-    private boolean login(){
+    public StartMenu() {
+        users = new HashMap<>();
+    }
+
+    private boolean login(String userName, String password){
         return false;
     }
-    private boolean register(){
+    private boolean register(String userName, String password){
        return false;
     }
 
-    private void userDialog(){
+    private void runUserDialog(){
 
     }
 

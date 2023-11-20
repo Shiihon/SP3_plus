@@ -1,4 +1,4 @@
 public interface Menu {
 
-    public void setup ();
+    void setup ();
 }

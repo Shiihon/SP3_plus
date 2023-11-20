@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
 public abstract class AMedia implements Media {
-    private String name;
-    private float rating;
-    private int releasYear;
-    private ArrayList<String> categories;
+    private final String name;
+    private final float rating;
+    private final int releasYear;
+    private final ArrayList<String> categories;
 
     public AMedia(String name, float rating, int releasYear, ArrayList<String>categories)
     {
@@ -13,7 +13,6 @@ public abstract class AMedia implements Media {
         this.releasYear = releasYear;
         this.categories = categories;
     }
-
 
     @Override
     public String getName()
