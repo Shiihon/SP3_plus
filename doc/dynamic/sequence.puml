@@ -41,6 +41,7 @@ Main : + static void main(string [] args)
 
 StreamingService : - StartMenu startMenu
 StreamingService : - MainMenu mainMenu
+StreamingService : - TextUI ui
 
 StreamingService : + void start()
 StreamingService : + void loop()
