@@ -6,6 +6,14 @@ public abstract class AMedia implements Media {
     private int releasYear;
     private ArrayList<String> categories;
 
+    public AMedia(String name, float rating, int releasYear, ArrayList<String>categories)
+    {
+        this.name = name;
+        this.rating= rating;
+        this.releasYear = releasYear;
+        this.categories = categories;
+    }
+
 
     @Override
     public String getName()
