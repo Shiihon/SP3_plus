@@ -8,9 +8,6 @@
     <artifactId>SP3_GruppeArb</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <modules>
-        <module>doc2</module>
-    </modules>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
