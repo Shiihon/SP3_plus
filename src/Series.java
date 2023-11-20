@@ -7,8 +7,8 @@ public class Series extends AMedia {
     private final int endYear;
     private Map<Integer,Integer> seasons;
 
-    public Series(String name, float rating, int releasYear, ArrayList<String> categories, int endYear, Map<Integer,Integer> seasons) {
-        super(name, rating, releasYear, categories);
+    public Series(String name, float rating, int releaseYear, ArrayList<String> categories, int endYear, Map<Integer,Integer> seasons) {
+        super(name, rating, releaseYear, categories);
         this.endYear = endYear;
 
         seasons = new HashMap<>();
