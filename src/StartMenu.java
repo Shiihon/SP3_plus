@@ -47,7 +47,7 @@ public class StartMenu extends AMenu {
         }
     }
 
-    public void saveUsers(ArrayList<User> registeredUsers) {
+    public void saveUsers() {
 
     }
 
