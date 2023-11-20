@@ -27,7 +27,7 @@ public abstract class AUser implements User {
     }
 
     @Override
-    public List<Media> getFavorites() {
+    public List<Media> getFavoriteList() {
         return favorites;
     }
 }
