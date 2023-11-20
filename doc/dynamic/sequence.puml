@@ -57,13 +57,14 @@ Menu : + void setup()
 AMenu : - TextUI ui
 
 
-StartMenu : - Map <String "userName", String "Password"> users
+StartMenu : - Map <String, String> users
 StartMenu : - IO io
 
-StartMenu : - boolean login( String "userName", String "Password")
-StartMenu : - boolean registerUser ( String "userName", String "Password")
+StartMenu : - boolean login( String userName, String password)
+StartMenu : - boolean registerUser ( String userName, String password)
 StartMenu : - void runUserDialog()
-StartMenu : - void loadUserData(String userName)
+StartMenu : - void loadUserData(User user)
+StartMenu : - Media loadMedia(String data)
 StartMenu : + void loadUsers()
 StartMenu : + void saveUsers()
 
