@@ -39,6 +39,9 @@ AMedia <|-- Series
 Main : + static void main(string [] args)
 
 
+StreamingService : - StartMenu startMenu
+StreamingService : - MainMenu mainMenu
+
 StreamingService : + void start()
 StreamingService : + void loop()
 StreamingService : + void end()
