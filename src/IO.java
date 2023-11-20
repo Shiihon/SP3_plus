@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Map;
 
 public interface IO {
 
@@ -6,5 +7,5 @@ public interface IO {
 
     void saveMediasData(String path, ArrayList<Media> media);
 
-    void saveUsersData(String path, ArrayList<User> users);
+    void saveUsersData(String path, Map<String, String> users);
 }
