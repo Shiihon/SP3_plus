@@ -2,6 +2,7 @@
 class Main
 class StreamingService
 interface Menu
+abstract class AMenu
 class StartMenu
 class MainMenu
 interface User
@@ -17,9 +18,10 @@ class TextUI
 
 Main *-- StreamingService
 StreamingService *-- Menu
-Menu <|-- StartMenu
-Menu <|-- MainMenu
-Menu *-- TextUI
+Menu <|-- AMenu
+AMenu <|-- StartMenu
+AMenu <|-- MainMenu
+AMenu *-- TextUI
 StartMenu *-- IO
 MainMenu *-- IO
 IO <|-- FileIO
@@ -43,6 +45,9 @@ StreamingService : + void end()
 
 
 Menu : + void setup()
+
+
+AMenu : - TextUI ui
 
 
 StartMenu : - Map <String "userName", String "Password"> users
@@ -80,21 +85,27 @@ AUser : - String userName
 AUser : - String password
 AUser : - List <Media> watchedMedia
 AUser : - List <Media> favorites
+
+
 Media : + String getName()
 Media : + float getRating()
 Media : + int getReleasYears()
 Media : + ArrayList<String> getCategories()
 Media : + void play()
 
+
 AMedia : - String name
 AMedia : - float rating
 AMedia : - int releasYear
 AMedia : - ArrayList<String> categories
+
 AMedia : + @Override String toString()
+
 
 Series : - int endYear
 Series : - Map<Integer, Integer> seasons
 Series : + Map <Integer, Integer> getSeasons()
+
 Series : + int getEndYear()
 Series : + String toString()
 
@@ -103,6 +114,7 @@ IO : + ArrayList <String> readData(String path)
 IO : + void saveData(String path, ArrayList<Media> medias)
 
 TextUI : - Scanner scanner;
+
 TextUI : + String getInput(String msg)
 TextUI : + void displayMsg(String msg)
 
