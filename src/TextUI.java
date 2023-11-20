@@ -9,7 +9,8 @@ public class TextUI {
     }
 
     public String getInput(String msg) {
-        return null;
+        this.displayMessage(msg);
+        return scanner.nextLine();
     }
 
     public void displayMessage(String msg) {
