@@ -6,7 +6,13 @@ public class FileIO implements IO {
         return null;
     }
 
-    public void saveData(String path, ArrayList<Media> media) {
+    @Override
+    public void saveMediasData(String path, ArrayList<Media> media) {
+
+    }
+
+    @Override
+    public void saveUsersData(String path, ArrayList<User> users) {
 
     }
 }

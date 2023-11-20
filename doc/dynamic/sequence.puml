@@ -44,6 +44,9 @@ StreamingService : + void loop()
 StreamingService : + void end()
 
 
+StreamingService *-l- TextUI
+
+
 Menu : + void setup()
 
 
@@ -51,6 +54,7 @@ AMenu : - TextUI ui
 
 
 StartMenu : - Map <String "userName", String "Password"> users
+StartMenu : - IO io
 
 StartMenu : - boolean login( String "userName", String "Password")
 StartMenu : - boolean registerUser ( String "userName", String "Password")
@@ -61,6 +65,7 @@ StartMenu : + void saveUsers()
 
 
 MainMenu : - ArrayList <Media> medias
+MainMenu : - IO io
 
 MainMenu : - Media search(String name)
 MainMenu : - Media[] searchCategory(String category)
@@ -111,7 +116,8 @@ Series : + String toString()
 
 
 IO : + ArrayList <String> readData(String path)
-IO : + void saveData(String path, ArrayList<Media> medias)
+IO : + void saveMediaData(String path, ArrayList<Media> medias)
+IO : + void saveUsersData(String path, ArrayList<User> users)
 
 TextUI : - Scanner scanner;
 

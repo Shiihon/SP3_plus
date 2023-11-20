@@ -4,5 +4,7 @@ public interface IO {
 
     ArrayList<String> readData(String path);
 
-    void saveData(String path, ArrayList<Media> media);
+    void saveMediasData(String path, ArrayList<Media> media);
+
+    void saveUsersData(String path, ArrayList<User> users);
 }
