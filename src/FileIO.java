@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Map;
 
 public class FileIO implements IO {
 
@@ -12,7 +13,7 @@ public class FileIO implements IO {
     }
 
     @Override
-    public void saveUsersData(String path, ArrayList<User> users) {
+    public void saveUsersData(String path, Map<String, String> users) {
 
     }
 }
