@@ -37,3 +37,4 @@ build/
 
 ### Mac OS ###
 .DS_Store
+/out/production/SP3_GruppeArb/Main.class
