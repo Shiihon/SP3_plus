@@ -1,15 +1,17 @@
-
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainMenu extends AMenu {
     private final List<Media> medias;
     private boolean running;
     private User user;
+    private FileIO io;
 
     public MainMenu() {
         medias = new ArrayList<>();
+        io = new FileIO();
     }
 
     @Override
@@ -72,7 +74,6 @@ public class MainMenu extends AMenu {
     private void search() {
         String theSearch = ui.getInput("Search for a movie or series");
 
-
         boolean mediaFound = false;
         Media media = null;
         for (Media movieSeries : medias) {
@@ -106,8 +107,6 @@ public class MainMenu extends AMenu {
         } else {
             ui.displayMessage("The movie or series " + theSearch + " isn't on our platform");
         }
-
-
     }
 
     private void searchCategory() {
@@ -162,13 +161,22 @@ public class MainMenu extends AMenu {
             }
 
         }
-
     }
-
 
     private void showMediaList() {
+        List<String> movieOptions = io.readData("data/100bedstefilm.txt");
 
+        for (int i = 0; i < movieOptions.size(); i++) {
+            System.out.println((i + 1) + ". " + movieOptions.get(i));
+        }
     }
+   /* List<String> userDataList = io.readData("data/users.txt");
+        users.clear();
+        for (String line : userDataList) {
+        String[] userData = line.split(",");
+        String userName = userData[0].trim();
+        String password = userData[1].trim();
+        users.put(userName, password);*/
 
     private void showUserWatchedList() {
     }
@@ -198,7 +206,55 @@ public class MainMenu extends AMenu {
     }
 
     public void loadMedia() {
+        List<String> movies = io.readData("data/100bedstefilm.txt");
+        for (String line : movies) {
+            addMedia(createMedia(line, "Movie"));
+        }
+        List<String> series = io.readData("data/100bedsteserier.txt");
+        for (String line : series) {
+            addMedia(createMedia(line, "Series"));
+        }
+    }
 
+    private Media createMedia(String data, String type) {
+        String[] mediaData = data.split(";");
+        String mediaName = mediaData[0].trim();
+        String category = mediaData[2].trim();
+        String[] categoryData = category.split(",");
+
+        List<String> categoryList = new ArrayList<>();
+
+        for (String categoryName : categoryData) {
+            categoryList.add(categoryName.trim());
+        }
+
+        float rating = Float.parseFloat(mediaData[3].trim().replace(",", "."));
+
+        if (type.equalsIgnoreCase("Movie")) {
+            int yearOfRelease = Integer.parseInt(mediaData[1].trim());
+
+            return new Movie(mediaName, rating, yearOfRelease, categoryList);
+        } else if (type.equalsIgnoreCase("Series")) {
+            String runningYears = mediaData[1].trim();
+            String[] runningYearData = runningYears.split("-");
+            int releaseYear = Integer.parseInt(runningYearData[0].trim());
+            int endYear = Integer.parseInt(runningYearData[1].trim());
+
+            String seasons = mediaData[4].trim();
+            String[] numberOfSeasons = seasons.split(",");
+            Map<Integer, Integer> seasonMap = new HashMap<>();
+
+            for (String seasonsListing : numberOfSeasons) {
+                String[] splittingSeasons = seasonsListing.split("-");
+                int season = Integer.parseInt(splittingSeasons[0].trim());
+                int numberOfEpisodes = Integer.parseInt(splittingSeasons[1].trim());
+
+                seasonMap.put(season, numberOfEpisodes);
+            }
+            return new Series(mediaName, rating, releaseYear, categoryList, endYear, seasonMap);
+        }
+
+        return null;
     }
 
     private void logout() {
