@@ -1,11 +1,11 @@
-import java.util.ArrayList;
+import java.util.List;
 
 public interface Media
 {
     String getName();
     float getRating();
     int getReleasYears();
-    ArrayList <String> getCategories();
+    List<String> getCategories();
     void play();
 
 }
