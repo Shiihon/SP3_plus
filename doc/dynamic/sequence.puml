@@ -58,29 +58,36 @@ AMenu : - TextUI ui
 
 
 StartMenu : - Map <String, String> users
+StartMenu : - User user
 StartMenu : - IO io
 
-StartMenu : - boolean login(String userName, String password)
-StartMenu : - boolean registerUser (String userName, String password)
+StartMenu : - void login()
+StartMenu : - void registerUser ()
 StartMenu : - void runUserDialog()
-StartMenu : - void loadUserData(User user)
-StartMenu : - Media loadMedia(String data)
+StartMenu : - void loadUser(String userName, String password)
+StartMenu : - Media createMedia(String data)
 StartMenu : + void loadUsers()
 StartMenu : + void saveUsers()
+StartMenu : + User getUser()
 
 
 MainMenu : - List <Media> medias
+MainMenu : - boolean running
+MainMenu : - User user
 MainMenu : - IO io
 
-MainMenu : - Media search(String name)
-MainMenu : - Media[] searchCategory(String category)
+MainMenu : - void search()
+MainMenu : - void searchCategory()
+MainMenu : - void showMediaList()
 MainMenu : - void showUserWatchedList()
 MainMenu : - void showUserFavoriteLit()
 MainMenu : - void runMainMenuLoop()
 MainMenu : - void chooseMedia(Media media)
-MainMenu : - boolean addToFavorits(Media media)
-MainMenu : - boolean removeToFavorits(Media media)
+MainMenu : - void addToFavorits(Media media)
+MainMenu : - void removeFromFavorits(Media media)
 MainMenu : - void logout()
+MainMenu : - Media createMedia(String data, String type)
+MainMenu : + void setUser(User user)
 MainMenu : + void addMedia(Media media) ?
 MainMenu : + void removeMedia(Media media) ?
 MainMenu : + void loadMedia()
@@ -124,9 +131,16 @@ IO : + List <String> readData(String path)
 IO : + void saveMediaData(String path, List<Media> medias)
 IO : + void saveUsersData(String path, List<User> users)
 
+
+FileIO : - void ensureFileExistence()
+
+
 TextUI : - Scanner scanner;
 
 TextUI : + String getInput(String msg)
-TextUI : + void displayMsg(String msg)
+TextUI : + String getChoice(String msg, List<String> options)
+TextUI : + String getChoiceYN(String msg)
+TextUI : + void displayOptions(List<String> options)
+TextUI : + void displayMessage(String msg)
 
 @enduml
