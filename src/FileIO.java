@@ -3,14 +3,16 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class FileIO implements IO {
 
-    public ArrayList<String> readData(String path) {
+    @Override
+    public List<String> readData(String path) {
 
-        ArrayList<String> data = new ArrayList<>();
+        List<String> data = new ArrayList<>();
         File file = new File(path);
 
         try {
@@ -30,7 +32,7 @@ public class FileIO implements IO {
     }
 
     @Override
-    public void saveMediasData(String path, ArrayList<Media> media) {
+    public void saveMediasData(String path, List<Media> media) {
 
         try {
             FileWriter writer = new FileWriter(path);

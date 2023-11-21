@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class StartMenu extends AMenu {
@@ -27,8 +28,8 @@ public class StartMenu extends AMenu {
     }
 
     private void loadUserData(User user) {
-        ArrayList<String> userWatchList = io.readData("data/userData/" + user.getUserName() + "/watched.txt");
-        ArrayList<String> userFavouriteList = io.readData("data/userData/" + user.getUserName() + "/favourite.txt");
+        List<String> userWatchList = io.readData("data/userData/" + user.getUserName() + "/watched.txt");
+        List<String> userFavouriteList = io.readData("data/userData/" + user.getUserName() + "/favourite.txt");
 
         for (String line : userWatchList) {
             user.getWatchedList().add(loadMedia(line));
@@ -45,7 +46,7 @@ public class StartMenu extends AMenu {
         String category = mediaData[3].trim();
         String[] categoryData = category.split(",");
 
-        ArrayList<String> categoryList = new ArrayList<>();
+        List<String> categoryList = new ArrayList<>();
 
         for (String categoryName : categoryData) {
             categoryList.add(categoryName.trim());
@@ -87,7 +88,7 @@ public class StartMenu extends AMenu {
     }
 
     public void loadUsers() {
-        ArrayList<String> userDataList = io.readData("data/users.txt");
+        List<String> userDataList = io.readData("data/users.txt");
         users.clear();
         for (String line : userDataList) {
             String[] userData = line.split(",");
