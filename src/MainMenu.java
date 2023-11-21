@@ -89,7 +89,20 @@ public class MainMenu extends AMenu {
             options.add("Play");
             options.add("Add to favorites");
             options.add("Remove form favorites");
-            int choice = ui.getChoice("What do you wanna d ? ", options);
+            int choice = ui.getChoice("What do you wanna do ? ", options);
+
+            switch (choice) {
+                case 1:
+                    media.play();
+                    break;
+                case 2:
+                    addToFavourites(media);
+                    break;
+                case 3:
+                    removeFromFavourites(media);
+                    break;
+
+            }
 
         } else {
             ui.displayMessage("The movie or series " + theSearch + " isn't on our platform");
@@ -97,6 +110,57 @@ public class MainMenu extends AMenu {
     }
 
     private void searchCategory() {
+
+        String search = ui.getInput("What category would you like to se ?");
+        List<Media> searchMatches = new ArrayList<>();
+
+
+        for (Media media : medias) {
+            for (String category : media.getCategories()) {
+                if (category.equalsIgnoreCase(search)) {
+                    ui.displayMessage("We have: " + media.getName() + " " + media.getReleasYears() + " " + media.getRating() + "\n");
+                    searchMatches.add(media);
+                    break;
+
+                }
+            }
+        }
+
+        if (searchMatches.size() == 0) {
+            ui.displayMessage("We dont have any movies or series with that category");
+        } else {
+
+            List<String> options = new ArrayList<>();
+            for (Media media : searchMatches) {
+                options.add(media.getName());
+            }
+
+            int input = ui.getChoice("What would you like to watch?", options);
+            Media media = searchMatches.get(input-1);
+
+            options.clear();
+
+            options.add("Play");
+            options.add("Add to favorites");
+            options.add("Remove form favorites");
+            int choice = ui.getChoice("What do you wanna d ? ", options);
+
+            switch (choice) {
+                case 1:
+                    media.play();
+                    break;
+                case 2:
+                    addToFavourites(media);
+                    break;
+                case 3:
+                    removeFromFavourites(media);
+                    break;
+
+
+
+            }
+
+        }
     }
 
     private void showMediaList() {
