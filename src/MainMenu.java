@@ -61,12 +61,10 @@ public class MainMenu extends AMenu{
         }
     }
 
-    private Media search (String name){
-        return null;
+    private void search (String name){
     }
 
-    private Media [] searchCategory(String category){
-        return null;
+    private void searchCategory(String category){
     }
 
     private void showMediaList() {
@@ -80,12 +78,12 @@ public class MainMenu extends AMenu{
 
     }
 
-    private boolean addToFavourites(Media media){
-        return false;
+    private void addToFavourites(Media media){
+
     }
 
-    private boolean removeFromFavourites(Media media){
-        return false;
+    private void removeFromFavourites(Media media){
+
     }
 
     private void chooseMedia (Media media){
