@@ -119,11 +119,11 @@ public class MainMenu extends AMenu{
     }
 
     public void addMedia (Media media){
-        medias.remove(media);
+        medias.add(media);
     }
 
     public void removeMedia (Media media){
-        medias.add(media);
+        medias.remove(media);
     }
 
     public void loadMedia(){
