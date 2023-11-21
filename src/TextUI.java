@@ -47,7 +47,7 @@ public class TextUI {
 
     public void displayOptions(List<String> options) {
         for (int i = 0; i < options.size(); i++) {
-            displayMessage("[" + (i+1) + "] " + options);
+            displayMessage("[" + (i+1) + "] " + options.get(i));
         }
     }
 
