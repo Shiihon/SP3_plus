@@ -4,6 +4,7 @@ import java.util.List;
 public class MainMenu extends AMenu{
     private final List<Media> medias;
     private boolean running;
+    private User user;
 
     public MainMenu() {
         medias = new ArrayList<>();
@@ -12,7 +13,14 @@ public class MainMenu extends AMenu{
     @Override
     public void setup() {
         loadMedia();
+
+        ui.displayMessage("Welcome " + user.getUserName());
+
         runMainMenuLoop();
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     private void runMainMenuLoop (){
@@ -47,12 +55,10 @@ public class MainMenu extends AMenu{
                     showUserFavoritesList();
                     break;
                 case 4:
-                    String mediaName = ui.getInput("What's the name of the media you wish to find? ");
-                    search(mediaName);
+                    search();
                     break;
                 case 5:
-                    String mediaCategory = ui.getInput("What category would you like look in? ");
-                    searchCategory(mediaCategory);
+                    searchCategory();
                     break;
                 case 6:
                     logout();
@@ -61,10 +67,7 @@ public class MainMenu extends AMenu{
         }
     }
 
-
-
-    private void search (String name) {
-
+    private void search () {
         String theSearch = ui.getInput("Search for a movie or series");
 
 
@@ -99,33 +102,28 @@ public class MainMenu extends AMenu{
             }
 
         } else {
-            ui.displayMessage("The movie or series " + media + " isn't on our platform");
+            ui.displayMessage("The movie or series " + theSearch + " isn't on our platform");
         }
 
 
     }
 
-    private void searchCategory(){
+    private void searchCategory() {
 
         String search = ui.getInput("What category would you like to se ?");
 
         int count = 0;
-        for(Media media: medias)
-        {
-            for(String category: media.getCategories())
-            {
-                if (category.equalsIgnoreCase(search))
-                {
+        for (Media media : medias) {
+            for (String category : media.getCategories()) {
+                if (category.equalsIgnoreCase(search)) {
                     ui.displayMessage("We have: " + media.getName() + " " + media.getReleasYears() + " " + media.getRating() + "\n");
                     count++;
                 }
             }
 
-            if(count == 0)
-            {
+            if (count == 0) {
                 ui.displayMessage("We dont have any movies or series with that category");
-            } else
-            {
+            } else {
                 String pick = ui.getInput("What movie or series do you wanna pick ?");
                 ui.displayMessage("what do you want to do with: " + pick);
                 List<String> options = new ArrayList<>();
@@ -134,7 +132,7 @@ public class MainMenu extends AMenu{
                 options.add("Remove form favorites");
                 int choice = ui.getChoice("What do you wanna d ? ", options);
 
-                switch (choice){
+                switch (choice) {
                     case 1:
                         media.play();
                         break;
@@ -150,11 +148,12 @@ public class MainMenu extends AMenu{
             }
 
         }
-
-
     }
 
+
+
     private void showMediaList() {
+
     }
 
     private void showUserWatchedList(){
@@ -177,11 +176,11 @@ public class MainMenu extends AMenu{
     }
 
     public void addMedia (Media media){
-        medias.remove(media);
+        medias.add(media);
     }
 
     public void removeMedia (Media media){
-        medias.add(media);
+        medias.remove(media);
     }
 
     public void loadMedia(){

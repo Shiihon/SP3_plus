@@ -23,7 +23,11 @@ public class StreamingService {
             ui.displayMessage("Welcome to Chad-Dave-Steve&Mark-Flix#Pump");
 
             startMenu.setup();
-            mainMenu.setup();
+
+            if (startMenu.getUser() != null) {
+                mainMenu.setUser(startMenu.getUser());
+                mainMenu.setup();
+            }
 
             String input = ui.getChoiceYN("Do you wish to quit? (Y/N) ");
 
