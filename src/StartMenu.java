@@ -88,16 +88,16 @@ public class StartMenu extends AMenu {
         List<String> userFavouriteList = io.readData("data/userData/" + user.getUserName() + "/favourite.txt");
 
         for (String line : userWatchList) {
-            user.getWatchedList().add(loadMedia(line));
+            user.getWatchedList().add(createMedia(line));
         }
         for (String line : userFavouriteList) {
-            user.getFavoriteList().add(loadMedia(line));
+            user.getFavoriteList().add(createMedia(line));
         }
 
         this.user = user;
     }
 
-    private Media loadMedia(String data) {
+    private Media createMedia(String data) {
         String[] mediaData = data.split(";");
         String type = mediaData[0].trim();
         String mediaName = mediaData[1].trim();
