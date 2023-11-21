@@ -1,5 +1,7 @@
+import javax.print.attribute.standard.Media;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class MainMenu extends AMenu{
     private final List<Media> medias;
@@ -18,8 +20,36 @@ public class MainMenu extends AMenu{
 
     }
 
-    private Media search (String name){
-        return null;
+    private void search (String name){
+
+        String theSearch = ui.getInput("Search for a movie or series");
+
+
+        boolean mediaFound = false;
+        Media media = null;
+        for(Media movieSeries: medias)
+        {
+            if(movieSeries.getName().equalsIgnoreCase(theSearch))
+            {
+                mediaFound = true;
+                media = movieSeries;
+                break;
+            }
+        }
+
+        if(mediaFound)
+        {
+            List<String> options = new ArrayList<>();
+            options.add("Play");
+            options.add("Add to favorites");
+            options.add("Remove form favorites");
+            int choice = ui.getChoice("What do you wanna d ? ", options );
+
+        } else
+        {
+            ui.displayMessage("The movie or series " + media + " isn't on our platform");
+        }
+
     }
 
     private Media [] searchCategory(String category){
