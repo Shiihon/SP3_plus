@@ -2,6 +2,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+*.class
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
@@ -12,6 +13,7 @@ target/
 *.iws
 *.iml
 *.ipr
+/.idea/uiDesigner.xml
 
 ### Eclipse ###
 .apt_generated
@@ -37,20 +39,3 @@ build/
 
 ### Mac OS ###
 .DS_Store
-/out/production/SP3_GruppeArb/Main.class
-/out/production/SP3_GruppeArb/AMedia.class
-/out/production/SP3_GruppeArb/AMenu.class
-/out/production/SP3_GruppeArb/AUser.class
-/out/production/SP3_GruppeArb/FileIO.class
-/out/production/SP3_GruppeArb/IO.class
-/out/production/SP3_GruppeArb/MainMenu.class
-/out/production/SP3_GruppeArb/Media.class
-/out/production/SP3_GruppeArb/Menu.class
-/out/production/SP3_GruppeArb/Movie.class
-/out/production/SP3_GruppeArb/RegularUser.class
-/out/production/SP3_GruppeArb/Series.class
-/out/production/SP3_GruppeArb/StartMenu.class
-/out/production/SP3_GruppeArb/StreamingService.class
-/out/production/SP3_GruppeArb/TextUI.class
-/out/production/SP3_GruppeArb/User.class
-/.idea/uiDesigner.xml
