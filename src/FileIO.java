@@ -45,7 +45,7 @@ public class FileIO implements IO {
             }
             writer.close();
         } catch (IOException e) {
-            System.out.println("Something went wrong while writing media data to the file " + file.getParentFile().getName() + "/" + file.getName());
+            System.out.println("Error: Something went wrong while writing media data to file " + file.getParentFile().getName() + "/" + file.getName() + ".");
         }
     }
 
@@ -66,7 +66,7 @@ public class FileIO implements IO {
             }
             writer.close();
         } catch (IOException e) {
-            System.out.println("noget gik galt ved skrivning til fil og userInfo");
+            System.out.println("Error: Something went wrong while writing user data to file " + file.getParentFile().getName() + "/" + file.getName() + ".");
         }
     }
 
@@ -78,7 +78,7 @@ public class FileIO implements IO {
         try {
             file.createNewFile();
         } catch (IOException e) {
-            System.out.println("Could not create file " + file.getParentFile().getName() + "/" + file.getName());
+            System.out.println("Error: Could not create file " + file.getParentFile().getName() + "/" + file.getName());
         }
     }
 }
