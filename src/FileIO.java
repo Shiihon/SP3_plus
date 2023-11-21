@@ -11,7 +11,6 @@ public class FileIO implements IO {
 
     @Override
     public List<String> readData(String path) {
-
         List<String> data = new ArrayList<>();
         File file = new File(path);
 
@@ -25,7 +24,7 @@ public class FileIO implements IO {
             }
 
         } catch (FileNotFoundException e) {
-            System.out.println("file not found");
+            System.out.println("Could not find file " + file.getParentFile().getName() + "/" + file.getName());
         }
 
         return data;
@@ -33,25 +32,30 @@ public class FileIO implements IO {
 
     @Override
     public void saveMediasData(String path, List<Media> media) {
+        File file = new File(path);
+        ensureFileExistence(file);
 
         try {
-            FileWriter writer = new FileWriter(path);
+            FileWriter writer = new FileWriter(file);
             writer.write("Titel");
             for (Media mediaList : media) {
                 String title = mediaList.getName();
 
                 writer.write(title + ", " + mediaList.getReleasYears() + ", " + mediaList.getCategories() + ", " + mediaList.getRating() + "\n");
             }
+            writer.close();
         } catch (IOException e) {
-            System.out.println("noget gik galt ved skrivning til fil og saveMedia");
+            System.out.println("Something went wrong while writing media data to the file " + file.getParentFile().getName() + "/" + file.getName());
         }
     }
 
     @Override
     public void saveUsersData(String path, Map<String, String> users) {
-        try {
+        File file = new File(path);
+        ensureFileExistence(file);
 
-            FileWriter writer = new FileWriter(path);
+        try {
+            FileWriter writer = new FileWriter(file);
             writer.write("Name, Password" + "\n");
             for (Map.Entry<String, String> entry : users.entrySet()) {
                 String userName = entry.getKey();
@@ -63,6 +67,18 @@ public class FileIO implements IO {
             writer.close();
         } catch (IOException e) {
             System.out.println("noget gik galt ved skrivning til fil og userInfo");
+        }
+    }
+
+    private void ensureFileExistence(File file) {
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Could not create file " + file.getParentFile().getName() + "/" + file.getName());
         }
     }
 }
