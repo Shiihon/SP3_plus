@@ -16,7 +16,7 @@ public class MainMenu extends AMenu {
 
     @Override
     public void setup() {
-        createMedia();
+        loadMedia();
 
         ui.displayMessage("Welcome " + user.getUserName());
 
@@ -100,15 +100,11 @@ public class MainMenu extends AMenu {
     }
 
     private void showMediaList() {
-      List <String> options = new ArrayList<>();
-      List <String> movieOptions = io.readData("data/100bedstefilm.txt");
-        int counter = 0;
-        for(int i = 0; 1 < movieOptions.size(); i++){
-            counter = + i;
-            System.out.println(i);
+        List<String> movieOptions = io.readData("data/100bedstefilm.txt");
 
+        for (int i = 0; i < movieOptions.size(); i++) {
+            System.out.println((i + 1) + ". " + movieOptions.get(i));
         }
-
     }
    /* List<String> userDataList = io.readData("data/users.txt");
         users.clear();
@@ -145,22 +141,21 @@ public class MainMenu extends AMenu {
         medias.remove(media);
     }
 
-    public void createMedia() {
+    public void loadMedia() {
         List<String> movies = io.readData("data/100bedstefilm.txt");
         for (String line : movies) {
-            addMedia(createMedia(line));
+            addMedia(createMedia(line, "Movie"));
         }
         List<String> series = io.readData("data/100bedsteserier.txt");
         for (String line : series) {
-            addMedia(createMedia(line));
+            addMedia(createMedia(line, "Series"));
         }
     }
 
-    private Media createMedia(String data) {
+    private Media createMedia(String data, String type) {
         String[] mediaData = data.split(";");
-        String type = mediaData[0].trim();
-        String mediaName = mediaData[1].trim();
-        String category = mediaData[3].trim();
+        String mediaName = mediaData[0].trim();
+        String category = mediaData[2].trim();
         String[] categoryData = category.split(",");
 
         List<String> categoryList = new ArrayList<>();
@@ -169,19 +164,19 @@ public class MainMenu extends AMenu {
             categoryList.add(categoryName.trim());
         }
 
-        float rating = Float.parseFloat(mediaData[4].trim().replace(",", "."));
+        float rating = Float.parseFloat(mediaData[3].trim().replace(",", "."));
 
         if (type.equalsIgnoreCase("Movie")) {
-            int yearOfRelease = Integer.parseInt(mediaData[2].trim());
+            int yearOfRelease = Integer.parseInt(mediaData[1].trim());
 
             return new Movie(mediaName, rating, yearOfRelease, categoryList);
         } else if (type.equalsIgnoreCase("Series")) {
-            String runningYears = mediaData[2].trim();
+            String runningYears = mediaData[1].trim();
             String[] runningYearData = runningYears.split("-");
             int releaseYear = Integer.parseInt(runningYearData[0].trim());
             int endYear = Integer.parseInt(runningYearData[1].trim());
 
-            String seasons = mediaData[5].trim();
+            String seasons = mediaData[4].trim();
             String[] numberOfSeasons = seasons.split(",");
             Map<Integer, Integer> seasonMap = new HashMap<>();
 
