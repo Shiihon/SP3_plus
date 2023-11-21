@@ -5,41 +5,21 @@ import java.util.Map;
 
 public class StartMenu extends AMenu {
 
-    private IO io;
-
     private final Map<String, String> users;
+    private final IO io;
+    private User user;
 
     public StartMenu() {
-
         users = new HashMap<>();
         io = new FileIO();
     }
 
-    private boolean login(String userName, String password) {
+    @Override
+    public void setup() {
+        user = null;
 
-        if (users.containsKey(userName)) {
-            String userPassword = users.get(userName);
-            if (userPassword.equals(password)) {
-                return true;
-            } else {
-                System.out.println("The entered password is wrong...");
-            }
-        } else {
-            System.out.println("Username does not exist...");
-        }
-        return false;
-    }
-
-
-    private boolean register(String userName, String password) {
-        if (users.containsKey(userName)) {
-            ui.displayMessage("The username does already exist");
-            return false;
-        } else {
-            users.put(userName, password);
-            ui.displayMessage(userName + " has succesfully been registered...");
-            return true;
-        }
+        loadUsers();
+        runUserDialog();
     }
 
     private void runUserDialog() {
@@ -47,25 +27,63 @@ public class StartMenu extends AMenu {
         options.add("Login");
         options.add("Register new user");
         options.add("Quit");
-        int choice = ui.getChoice("What would you like to do?", options);
+        int choice = ui.getChoice("What would you like to do? ", options);
 
         switch (choice) {
             case 1:
-                String usersUserName = ui.getInput("What is your username? ");
-                String usersPassword = ui.getInput("What is your password? ");
-                login(usersUserName, usersPassword);
+                login();
                 break;
             case 2:
-                String choosenUsername = ui.getInput("What should your username be?");
-                String choosenPassword = ui.getInput("What should your password be?");
-                register(choosenUsername, choosenPassword);
+                register();
                 break;
             case 3:
                 break;
         }
     }
 
-    private void loadUserData(User user) {
+    private void login() {
+        String userName = ui.getInput("What is your username? ");
+
+        if (!users.containsKey(userName)) {
+            ui.displayMessage("Username does not exist...");
+            login();
+        }
+
+        String password = ui.getInput("What is your password? ");
+        String userPassword = users.get(userName);
+
+        while (!userPassword.equals(password)) {
+            ui.displayMessage("The entered password is wrong...");
+            password = ui.getInput("What is your password? ");
+        }
+
+        loadUser(userName, password);
+    }
+
+    private void register() {
+        String userName = ui.getInput("What should your username be? ");
+
+        if (users.containsKey(userName)) {
+            ui.displayMessage("The username does already exist");
+            register();
+        }
+
+        String password = ui.getInput("What should your password be? ");
+
+        users.put(userName, password);
+        ui.displayMessage(userName + " has succesfully been registered...");
+
+        loadUser(userName, password);
+        saveUsers();
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    private void loadUser(String userName, String password) {
+        User user = new RegularUser(userName, password);
+
         List<String> userWatchList = io.readData("data/userData/" + user.getUserName() + "/watched.txt");
         List<String> userFavouriteList = io.readData("data/userData/" + user.getUserName() + "/favourite.txt");
 
@@ -75,6 +93,8 @@ public class StartMenu extends AMenu {
         for (String line : userFavouriteList) {
             user.getFavoriteList().add(loadMedia(line));
         }
+
+        this.user = user;
     }
 
     private Media loadMedia(String data) {
@@ -117,12 +137,6 @@ public class StartMenu extends AMenu {
         }
 
         return null;
-    }
-
-    @Override
-    public void setup() {
-        loadUsers();
-        runUserDialog();
     }
 
     public void loadUsers() {
