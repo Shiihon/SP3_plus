@@ -46,6 +46,6 @@ public abstract class AMedia implements Media {
     @Override
     public String toString()
     {
-        return null;
+        return getName();
     }
 }

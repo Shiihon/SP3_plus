@@ -27,7 +27,7 @@ public class Series extends AMedia {
     @Override
     public String toString()
     {
-        return null;
+        return super.toString();
     }
 
 }

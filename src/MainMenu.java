@@ -136,7 +136,7 @@ public class MainMenu extends AMenu {
             }
 
             int input = ui.getChoice("What would you like to watch?", options);
-            Media media = searchMatches.get(input-1);
+            Media media = searchMatches.get(input - 1);
 
             options.clear();
 
@@ -157,26 +157,18 @@ public class MainMenu extends AMenu {
                     break;
 
 
-
             }
 
         }
     }
 
     private void showMediaList() {
-        List<String> movieOptions = io.readData("data/100bedstefilm.txt");
-
-        for (int i = 0; i < movieOptions.size(); i++) {
-            System.out.println((i + 1) + ". " + movieOptions.get(i));
+        ui.displayMessage("");
+        for (int i = 0; i < medias.size(); i++) {
+            System.out.println((i + 1) + ". " + medias.get(i));
         }
+        ui.displayMessage("");
     }
-   /* List<String> userDataList = io.readData("data/users.txt");
-        users.clear();
-        for (String line : userDataList) {
-        String[] userData = line.split(",");
-        String userName = userData[0].trim();
-        String password = userData[1].trim();
-        users.put(userName, password);*/
 
     private void showUserWatchedList() {
     }
