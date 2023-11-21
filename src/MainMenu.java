@@ -1,7 +1,9 @@
+
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainMenu extends AMenu{
+public class MainMenu extends AMenu {
     private final List<Media> medias;
     private boolean running;
     private User user;
@@ -23,7 +25,7 @@ public class MainMenu extends AMenu{
         this.user = user;
     }
 
-    private void runMainMenuLoop (){
+    private void runMainMenuLoop() {
         running = true;
 
         while (running) {
@@ -67,7 +69,7 @@ public class MainMenu extends AMenu{
         }
     }
 
-    private void search () {
+    private void search() {
         String theSearch = ui.getInput("Search for a movie or series");
 
 
@@ -88,7 +90,7 @@ public class MainMenu extends AMenu{
             options.add("Remove form favorites");
             int choice = ui.getChoice("What do you wanna do ? ", options);
 
-            switch (choice){
+            switch (choice) {
                 case 1:
                     media.play();
                     break;
@@ -111,83 +113,95 @@ public class MainMenu extends AMenu{
     private void searchCategory() {
 
         String search = ui.getInput("What category would you like to se ?");
+        List<Media> searchMatches = new ArrayList<>();
 
-        int count = 0;
+
         for (Media media : medias) {
             for (String category : media.getCategories()) {
                 if (category.equalsIgnoreCase(search)) {
                     ui.displayMessage("We have: " + media.getName() + " " + media.getReleasYears() + " " + media.getRating() + "\n");
-                    count++;
+                    searchMatches.add(media);
+                    break;
+
                 }
             }
+        }
 
-            if (count == 0) {
-                ui.displayMessage("We dont have any movies or series with that category");
-            } else {
-                String pick = ui.getInput("What movie or series do you wanna pick ?");
-                ui.displayMessage("what do you want to do with: " + pick);
-                List<String> options = new ArrayList<>();
-                options.add("Play");
-                options.add("Add to favorites");
-                options.add("Remove form favorites");
-                int choice = ui.getChoice("What do you wanna d ? ", options);
+        if (searchMatches.size() == 0) {
+            ui.displayMessage("We dont have any movies or series with that category");
+        } else {
 
-                switch (choice) {
-                    case 1:
-                        media.play();
-                        break;
-                    case 2:
-                        addToFavourites(media);
-                        break;
-                    case 3:
-                        removeFromFavourites(media);
-                        break;
+            List<String> options = new ArrayList<>();
+            for (Media media : searchMatches) {
+                options.add(media.getName());
+            }
 
-                }
+            int input = ui.getChoice("What would you like to watch?", options);
+            Media media = searchMatches.get(input-1);
+
+            options.clear();
+
+            options.add("Play");
+            options.add("Add to favorites");
+            options.add("Remove form favorites");
+            int choice = ui.getChoice("What do you wanna d ? ", options);
+
+            switch (choice) {
+                case 1:
+                    media.play();
+                    break;
+                case 2:
+                    addToFavourites(media);
+                    break;
+                case 3:
+                    removeFromFavourites(media);
+                    break;
+
+
 
             }
 
         }
-    }
 
+    }
 
 
     private void showMediaList() {
 
     }
 
-    private void showUserWatchedList(){
+    private void showUserWatchedList() {
     }
 
     private void showUserFavoritesList() {
 
     }
 
-    private void addToFavourites(Media media){
+    private void addToFavourites(Media media) {
 
     }
 
-    private void removeFromFavourites(Media media){
+    private void removeFromFavourites(Media media) {
 
     }
 
-    private void chooseMedia (Media media){
+    private void chooseMedia(Media media) {
 
     }
 
-    public void addMedia (Media media){
+    public void addMedia(Media media) {
         medias.add(media);
     }
 
-    public void removeMedia (Media media){
+    public void removeMedia(Media media) {
         medias.remove(media);
     }
 
-    public void loadMedia(){
+    public void loadMedia() {
 
     }
 
-    private void logout(){
+    private void logout() {
         running = false;
     }
 }
