@@ -60,8 +60,8 @@ AMenu : - TextUI ui
 StartMenu : - Map <String, String> users
 StartMenu : - IO io
 
-StartMenu : - boolean login( String userName, String password)
-StartMenu : - boolean registerUser ( String userName, String password)
+StartMenu : - boolean login(String userName, String password)
+StartMenu : - boolean registerUser (String userName, String password)
 StartMenu : - void runUserDialog()
 StartMenu : - void loadUserData(User user)
 StartMenu : - Media loadMedia(String data)
@@ -69,7 +69,7 @@ StartMenu : + void loadUsers()
 StartMenu : + void saveUsers()
 
 
-MainMenu : - ArrayList <Media> medias
+MainMenu : - List <Media> medias
 MainMenu : - IO io
 
 MainMenu : - Media search(String name)
@@ -100,14 +100,14 @@ AUser : - List <Media> favorites
 Media : + String getName()
 Media : + float getRating()
 Media : + int getReleasYears()
-Media : + ArrayList<String> getCategories()
+Media : + List<String> getCategories()
 Media : + void play()
 
 
 AMedia : - String name
 AMedia : - float rating
 AMedia : - int releasYear
-AMedia : - ArrayList<String> categories
+AMedia : - List<String> categories
 
 AMedia : + @Override String toString()
 
@@ -120,9 +120,9 @@ Series : + int getEndYear()
 Series : + String toString()
 
 
-IO : + ArrayList <String> readData(String path)
-IO : + void saveMediaData(String path, ArrayList<Media> medias)
-IO : + void saveUsersData(String path, ArrayList<User> users)
+IO : + List <String> readData(String path)
+IO : + void saveMediaData(String path, List<Media> medias)
+IO : + void saveUsersData(String path, List<User> users)
 
 TextUI : - Scanner scanner;
 
