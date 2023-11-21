@@ -20,7 +20,7 @@ public class TextUI {
         String input = getInput(msg);
 
         try {
-            int choice = Integer.parseInt(input);
+            int choice = Integer.parseInt(input.trim());
 
             if (choice >= 1 && choice <= options.size()) {
                 return choice;
