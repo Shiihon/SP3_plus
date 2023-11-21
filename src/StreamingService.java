@@ -25,26 +25,20 @@ public class StreamingService {
             startMenu.setup();
             mainMenu.setup();
 
-            boolean validOption = false;
+            String input = ui.getChoiceYN("Do you wish to quit? (Y/N) ");
 
-            while (!validOption) {
-                validOption = true;
-
-                switch (ui.getInput("Do you wish to quit? (Y/N)").trim().toUpperCase()) {
-                    case "Y":
-                        running = false;
-                        break;
-                    case "N":
-                        break;
-                    default:
-                        ui.displayMessage("Not a valid option");
-                        validOption = false;
-                }
+            switch (input) {
+                case "Y":
+                    end();
+                    break;
+                case "N":
+                    break;
             }
         }
     }
 
     public void end() {
+        ui.displayMessage("Quitting...");
         running = false;
     }
 }

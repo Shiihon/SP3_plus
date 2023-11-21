@@ -1,10 +1,25 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainMenu extends AMenu{
-    ArrayList<Media> medias;
+    private final List<Media> medias;
+
+    public MainMenu() {
+        medias = new ArrayList<>();
+    }
+
+    @Override
+    public void setup() {
+        loadMedia();
+        runMainMenuLoop();
+    }
+
+    private void runMainMenuLoop (){
+
+    }
 
     private Media search (String name){
-      return null;
+        return null;
     }
 
     private Media [] searchCategory(String category){
@@ -12,14 +27,6 @@ public class MainMenu extends AMenu{
     }
 
     private void showUserWatchedList(){
-    }
-
-    private void runMainMenuLoop (){
-
-    }
-
-    private void chooseMedia (Media media){
-
     }
 
     private boolean addToFavourites(Media media){
@@ -30,24 +37,23 @@ public class MainMenu extends AMenu{
         return false;
     }
 
-    private void logout(){
-
-    }
-
-    @Override
-    public void setup() {
+    private void chooseMedia (Media media){
 
     }
 
     public void addMedia (Media media){
-
+        medias.remove(media);
     }
 
     public void removeMedia (Media media){
-
+        medias.add(media);
     }
 
     public void loadMedia(){
+
+    }
+
+    private void logout(){
 
     }
 }
