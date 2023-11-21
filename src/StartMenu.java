@@ -16,15 +16,53 @@ public class StartMenu extends AMenu {
     }
 
     private boolean login(String userName, String password) {
+
+        if (users.containsKey(userName)) {
+            String userPassword = users.get(userName);
+            if (userPassword.equals(password)) {
+                return true;
+            } else {
+                System.out.println("The entered password is wrong...");
+            }
+        } else {
+            System.out.println("Username does not exist...");
+        }
         return false;
     }
 
+
     private boolean register(String userName, String password) {
-        return false;
+        if (users.containsKey(userName)) {
+            ui.displayMessage("The username does already exist");
+            return false;
+        } else {
+            users.put(userName, password);
+            ui.displayMessage(userName + " has succesfully been registered...");
+            return true;
+        }
     }
 
     private void runUserDialog() {
+        List<String> options = new ArrayList<>();
+        options.add("Login");
+        options.add("Register new user");
+        options.add("Quit");
+        int choice = ui.getChoice("What would you like to do?", options);
 
+        switch (choice) {
+            case 1:
+                String usersUserName = ui.getInput("What is your username? ");
+                String usersPassword = ui.getInput("What is your password? ");
+                login(usersUserName, usersPassword);
+                break;
+            case 2:
+                String choosenUsername = ui.getInput("What should your username be?");
+                String choosenPassword = ui.getInput("What should your password be?");
+                register(choosenUsername, choosenPassword);
+                break;
+            case 3:
+                break;
+        }
     }
 
     private void loadUserData(User user) {
