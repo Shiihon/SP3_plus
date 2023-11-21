@@ -174,7 +174,11 @@ public class MainMenu extends AMenu {
             String runningYears = mediaData[1].trim();
             String[] runningYearData = runningYears.split("-");
             int releaseYear = Integer.parseInt(runningYearData[0].trim());
-            int endYear = Integer.parseInt(runningYearData[1].trim());
+            int endYear = -1;
+
+            if (runningYearData.length > 1) {
+                endYear = Integer.parseInt(runningYearData[1].trim());
+            }
 
             String seasons = mediaData[4].trim();
             String[] numberOfSeasons = seasons.split(",");
