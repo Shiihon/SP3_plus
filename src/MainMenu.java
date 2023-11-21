@@ -5,9 +5,9 @@ import java.util.Map;
 
 public class MainMenu extends AMenu {
     private final List<Media> medias;
+    private final FileIO io;
     private boolean running;
     private User user;
-    private FileIO io;
 
     public MainMenu() {
         medias = new ArrayList<>();
@@ -72,7 +72,7 @@ public class MainMenu extends AMenu {
     }
 
     private void search() {
-        String theSearch = ui.getInput("Search for a movie or series");
+        String theSearch = ui.getInput("Search for a movie or series: ");
 
         boolean mediaFound = false;
         Media media = null;
@@ -110,10 +110,8 @@ public class MainMenu extends AMenu {
     }
 
     private void searchCategory() {
-
-        String search = ui.getInput("What category would you like to se ?");
+        String search = ui.getInput("What category would you like to see? ");
         List<Media> searchMatches = new ArrayList<>();
-
 
         for (Media media : medias) {
             for (String category : media.getCategories()) {
@@ -135,7 +133,7 @@ public class MainMenu extends AMenu {
                 options.add(media.getName());
             }
 
-            int input = ui.getChoice("What would you like to watch?", options);
+            int input = ui.getChoice("What would you like to watch? ", options);
             Media media = searchMatches.get(input - 1);
 
             options.clear();
@@ -143,7 +141,7 @@ public class MainMenu extends AMenu {
             options.add("Play");
             options.add("Add to favorites");
             options.add("Remove form favorites");
-            int choice = ui.getChoice("What do you wanna d ? ", options);
+            int choice = ui.getChoice("What do you wanna do? ", options);
 
             switch (choice) {
                 case 1:
@@ -155,10 +153,7 @@ public class MainMenu extends AMenu {
                 case 3:
                     removeFromFavourites(media);
                     break;
-
-
             }
-
         }
     }
 
@@ -199,9 +194,11 @@ public class MainMenu extends AMenu {
 
     public void loadMedia() {
         List<String> movies = io.readData("data/100bedstefilm.txt");
+
         for (String line : movies) {
             addMedia(createMedia(line, "Movie"));
         }
+
         List<String> series = io.readData("data/100bedsteserier.txt");
         for (String line : series) {
             addMedia(createMedia(line, "Series"));
