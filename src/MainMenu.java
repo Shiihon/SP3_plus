@@ -83,18 +83,78 @@ public class MainMenu extends AMenu{
             options.add("Play");
             options.add("Add to favorites");
             options.add("Remove form favorites");
-            int choice = ui.getChoice("What do you wanna d ? ", options);
+            int choice = ui.getChoice("What do you wanna do ? ", options);
+
+            switch (choice){
+                case 1:
+                    media.play();
+                    break;
+                case 2:
+                    addToFavourites(media);
+                    break;
+                case 3:
+                    removeFromFavourites(media);
+                    break;
+
+            }
 
         } else {
             ui.displayMessage("The movie or series " + media + " isn't on our platform");
         }
+
+
     }
 
-    private void searchCategory(String category){
+    private void searchCategory(){
+
+        String search = ui.getInput("What category would you like to se ?");
+
+        int count = 0;
+        for(Media media: medias)
+        {
+            for(String category: media.getCategories())
+            {
+                if (category.equalsIgnoreCase(search))
+                {
+                    ui.displayMessage("We have: " + media.getName() + " " + media.getReleasYears() + " " + media.getRating() + "\n");
+                    count++;
+                }
+            }
+
+            if(count == 0)
+            {
+                ui.displayMessage("We dont have any movies or series with that category");
+            } else
+            {
+                String pick = ui.getInput("What movie or series do you wanna pick ?");
+                ui.displayMessage("what do you want to do with: " + pick);
+                List<String> options = new ArrayList<>();
+                options.add("Play");
+                options.add("Add to favorites");
+                options.add("Remove form favorites");
+                int choice = ui.getChoice("What do you wanna d ? ", options);
+
+                switch (choice){
+                    case 1:
+                        media.play();
+                        break;
+                    case 2:
+                        addToFavourites(media);
+                        break;
+                    case 3:
+                        removeFromFavourites(media);
+                        break;
+
+                }
+
+            }
+
+        }
+
+
     }
 
     private void showMediaList() {
-
     }
 
     private void showUserWatchedList(){
