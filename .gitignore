@@ -2,7 +2,6 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-*.class
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
@@ -14,6 +13,7 @@ target/
 *.iml
 *.ipr
 /.idea/uiDesigner.xml
+/out/*
 
 ### Eclipse ###
 .apt_generated
