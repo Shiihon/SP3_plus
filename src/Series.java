@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Series extends AMedia {
 
@@ -14,12 +15,26 @@ public class Series extends AMedia {
         this.seasons = seasons;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Series series = (Series) o;
+        return getEndYear() == series.getEndYear() && Objects.equals(getSeasons(), series.getSeasons());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getEndYear(), getSeasons());
+    }
+
     public Map<Integer,Integer> getSeasons()
     {
         return seasons;
     }
 
-    public int getEndYears()
+    public int getEndYear()
     {
         return endYear;
     }
@@ -38,6 +53,6 @@ public class Series extends AMedia {
             seasonsData.add(entry.getKey() + "-" + entry.getValue());
         }
 
-        return String.format("%s; %d-%s; %s; %s; %s", getName(), getReleasYears(), getEndYears() == -1 ? "" : getEndYears(), String.join(", ", getCategories()), ratingFormatter.format(getRating()), String.join(", ", seasonsData));
+        return String.format("%s; %d-%s; %s; %s; %s", getName(), getReleaseYear(), getEndYear() == -1 ? "" : getEndYear(), String.join(", ", getCategories()), ratingFormatter.format(getRating()), String.join(", ", seasonsData));
     }
 }

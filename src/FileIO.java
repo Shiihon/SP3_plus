@@ -16,13 +16,11 @@ public class FileIO implements IO {
 
         try {
             Scanner scanner = new Scanner(file);
-            scanner.nextLine();
             while (scanner.hasNextLine()) {
                 String s = scanner.nextLine();
                 data.add(s);
 
             }
-
         } catch (FileNotFoundException e) {
             System.out.println("Could not find file " + file.getParentFile().getName() + "/" + file.getName());
         }
@@ -38,10 +36,7 @@ public class FileIO implements IO {
         try {
             FileWriter writer = new FileWriter(file);
             for (Media media : mediaList) {
-                writer.write(media.getClass().getSimpleName() + ", " + media.toString());
-
-                //String title = media.getName();
-                //writer.write(title + ", " + media.getReleasYears() + ", " + media.getCategories() + ", " + media.getRating() + "\n");
+                writer.write(media.getClass().getSimpleName() + ", " + media);
             }
             writer.close();
         } catch (IOException e) {

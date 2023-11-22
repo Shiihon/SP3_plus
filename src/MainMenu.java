@@ -102,7 +102,7 @@ public class MainMenu extends AMenu {
         for (Media media : medias) {
             for (String category : media.getCategories()) {
                 if (category.equalsIgnoreCase(search)) {
-                    ui.displayMessage("\nWe have: " + media.getName() + " " + media.getReleasYears() + " " + media.getRating() + "\n");
+                    ui.displayMessage("\nWe have: " + media.getName() + " " + media.getReleaseYear() + " " + media.getRating() + "\n");
                     searchMatches.add(media);
                     break;
                 }
