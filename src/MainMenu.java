@@ -166,6 +166,20 @@ public class MainMenu extends AMenu {
     }
 
     private void showUserWatchedList() {
+
+        ui.displayMessage("This is all your watched movies and series");
+        List<Media> searchMatches = new ArrayList<>();
+
+        for(Media watched: user.getWatchedList())
+        {
+            searchMatches.add(watched);
+        }
+
+
+
+        //chooseMedia();
+
+
     }
 
     private void showUserFavoritesList() {
@@ -173,6 +187,7 @@ public class MainMenu extends AMenu {
     }
 
     private void addToFavourites(Media media) {
+
 
     }
 
