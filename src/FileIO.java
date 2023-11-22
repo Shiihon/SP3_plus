@@ -70,6 +70,11 @@ public class FileIO implements IO {
         }
     }
 
+    @Override
+    public boolean hasDataEntry(String path) {
+        return new File(path).exists();
+    }
+
     private void ensureFileExistence(File file) {
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
