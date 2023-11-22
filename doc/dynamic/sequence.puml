@@ -82,6 +82,7 @@ MainMenu : - void showMediaList()
 MainMenu : - void showUserWatchedList()
 MainMenu : - void showUserFavoriteLit()
 MainMenu : - void runMainMenuLoop()
+MainMenu : - void playMedia(Media media)
 MainMenu : - void chooseMedia(Media media)
 MainMenu : - void addToFavorits(Media media)
 MainMenu : - void removeFromFavorits(Media media)
@@ -125,7 +126,7 @@ Series : + Map <Integer, Integer> getSeasons()
 
 Series : + int getEndYear()
 Series : + void play()
-Series : + String toString()
+Series : + @Override String toString()
 
 
 Movie : + void play()

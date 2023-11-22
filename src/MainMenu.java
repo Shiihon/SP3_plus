@@ -179,7 +179,7 @@ public class MainMenu extends AMenu {
 
         switch (choice) {
             case 1:
-                media.play();
+                playMedia(media);
                 break;
             case 2:
                 addToFavourites(media);
@@ -188,6 +188,14 @@ public class MainMenu extends AMenu {
                 removeFromFavourites(media);
                 break;
         }
+    }
+
+    public void playMedia(Media media) {
+        if (!user.getWatchedList().contains(media)) {
+            user.getWatchedList().add(media);
+        }
+
+        media.play();
     }
 
     private void showUserWatchedList() {
