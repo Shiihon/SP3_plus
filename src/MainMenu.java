@@ -202,7 +202,7 @@ public class MainMenu extends AMenu {
 
         List<Media> choosenMovie = user.getWatchedList();
         List<String> movies = new ArrayList<>();
-        for (Media media : medias) {
+        for (Media media : choosenMovie) {
             movies.add(media.getName());
         }
         int userChoice = ui.getChoice("Which movie would you like to choose?", movies);
