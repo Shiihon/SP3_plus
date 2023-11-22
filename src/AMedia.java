@@ -39,9 +39,7 @@ public abstract class AMedia implements Media {
     }
 
     @Override
-    public void play() {
-
-    }
+    public abstract void play();
 
     @Override
     public String toString()
