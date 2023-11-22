@@ -145,7 +145,7 @@ public class MainMenu extends AMenu {
             movies.add(media.getName());
         }
         int userChoice = ui.getChoice("\nWhich media would you like to choose?", movies);
-        Media media = medias.get(userChoice - 1);
+        Media media = showMovies.get(userChoice - 1);
 
         chooseMedia(media);
     }
@@ -203,13 +203,13 @@ public class MainMenu extends AMenu {
 
     private void showUserWatchedList() {
 
-        List<Media> choosenMovie = user.getWatchedList();
+        List<Media> chosenMovie = user.getWatchedList();
         List<String> movies = new ArrayList<>();
-        for (Media media : choosenMovie) {
+        for (Media media : chosenMovie) {
             movies.add(media.getName());
         }
         int userChoice = ui.getChoice("\n" + "Which media would you like to choose?", movies);
-        Media media = medias.get(userChoice - 1);
+        Media media = chosenMovie.get(userChoice - 1);
 
         chooseMedia(media);
     }
