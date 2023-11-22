@@ -124,15 +124,20 @@ Series : - Map<Integer, Integer> seasons
 Series : + Map <Integer, Integer> getSeasons()
 
 Series : + int getEndYear()
+Series : + void play()
 Series : + String toString()
+
+
+Movie : + void play()
 
 
 IO : + List <String> readData(String path)
 IO : + void saveMediaData(String path, List<Media> medias)
 IO : + void saveUsersData(String path, List<User> users)
+IO : + boolean hasDataEntry(String path)
 
 
-FileIO : - void ensureFileExistence()
+FileIO : - void ensureFileExistence(File file)
 
 
 TextUI : - Scanner scanner;
