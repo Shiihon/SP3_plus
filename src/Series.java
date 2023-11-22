@@ -25,6 +25,11 @@ public class Series extends AMedia {
     }
 
     @Override
+    public void play() {
+
+    }
+
+    @Override
     public String toString()
     {
         return super.toString();
