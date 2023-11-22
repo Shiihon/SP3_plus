@@ -87,9 +87,11 @@ public class MainMenu extends AMenu {
         if (mediaFound) {
             chooseMedia(media);
         } else {
+
             ui.displayMessage("The movie or series " + theSearch + " isn't on our platform");
         }
     }
+
 
     private void searchCategory() {
         String search = ui.getInput("What category would you like to see? ");
@@ -101,7 +103,6 @@ public class MainMenu extends AMenu {
                     ui.displayMessage("We have: " + media.getName() + " " + media.getReleasYears() + " " + media.getRating() + "\n");
                     searchMatches.add(media);
                     break;
-
                 }
             }
         }
@@ -124,14 +125,49 @@ public class MainMenu extends AMenu {
     }
 
     private void showMediaList() {
-        List<String> choosenMovie = new ArrayList<>();
+        List<String> chosenMovie = new ArrayList<>();
         for (Media media : medias) {
-            choosenMovie.add(media.getName());
+            chosenMovie.add(media.getName());
         }
-        int userChoice = ui.getChoice("Which movie would you like to choose?", choosenMovie);
+        int userChoice = ui.getChoice("Which movie would you like to choose?", chosenMovie);
         Media media = medias.get(userChoice - 1);
 
         chooseMedia(media);
+    }
+
+    private void showUserFavoritesList() {
+        List<Media> showMovies = user.getFavoriteList();
+
+        List<String> movies = new ArrayList<>();
+        for (Media media : showMovies) {
+            movies.add(media.getName());
+        }
+        int userChoice = ui.getChoice("Which movie would you like to choose?", movies);
+        Media media = medias.get(userChoice - 1);
+
+        chooseMedia(media);
+    }
+
+    private void addToFavourites(Media media) {
+        List<Media> favoriteList = user.getFavoriteList();
+
+        if (!favoriteList.contains(media)) {
+            favoriteList.add(media);
+            ui.displayMessage(media.getName() + " has been added to your favorite list.");
+        } else {
+            ui.displayMessage("The chosen movie does already exist in your favorite list.");
+        }
+    }
+
+    private void removeFromFavourites(Media media) {
+        List<Media> favoriteList = user.getFavoriteList();
+
+        if (favoriteList.contains(media)) {
+            favoriteList.remove(media);
+            ui.displayMessage(media.getName() + " has been removed from your favorite list.");
+        } else {
+            ui.displayMessage("The chosen movie does not exist in your favorite list.");
+        }
     }
 
     private void chooseMedia(Media media) {
@@ -165,19 +201,6 @@ public class MainMenu extends AMenu {
         Media media = medias.get(userChoice - 1);
 
         chooseMedia(media);
-    }
-
-    private void showUserFavoritesList() {
-
-    }
-
-    private void addToFavourites(Media media) {
-
-
-    }
-
-    private void removeFromFavourites(Media media) {
-
     }
 
     public void addMedia(Media media) {
