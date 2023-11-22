@@ -84,14 +84,20 @@ public class StartMenu extends AMenu {
     private void loadUser(String userName, String password) {
         User user = new RegularUser(userName, password);
 
-        List<String> userWatchList = io.readData("data/userData/" + user.getUserName() + "/watched.txt");
-        List<String> userFavouriteList = io.readData("data/userData/" + user.getUserName() + "/favourite.txt");
+        if (io.hasDataEntry("data/userData/" + user.getUserName() + "/watched.txt")) {
+            List<String> userWatchList = io.readData("data/userData/" + user.getUserName() + "/watched.txt");
 
-        for (String line : userWatchList) {
-            user.getWatchedList().add(createMedia(line));
+            for (String line : userWatchList) {
+                user.getWatchedList().add(createMedia(line));
+            }
         }
-        for (String line : userFavouriteList) {
-            user.getFavoriteList().add(createMedia(line));
+
+        if (io.hasDataEntry("data/userData/" + user.getUserName() + "/favourite.txt")) {
+            List<String> userWatchList = io.readData("data/userData/" + user.getUserName() + "/favourite.txt");
+
+            for (String line : userWatchList) {
+                user.getFavoriteList().add(createMedia(line));
+            }
         }
 
         this.user = user;
