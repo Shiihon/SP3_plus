@@ -1,7 +1,8 @@
-import java.util.ArrayList;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public abstract class AMedia implements Media {
+    protected final DecimalFormat ratingFormatter;
     private final String name;
     private final float rating;
     private final int releasYear;
@@ -13,6 +14,8 @@ public abstract class AMedia implements Media {
         this.rating= rating;
         this.releasYear = releasYear;
         this.categories = categories;
+
+        ratingFormatter = new DecimalFormat("#.#");
     }
 
     @Override
@@ -44,6 +47,6 @@ public abstract class AMedia implements Media {
     @Override
     public String toString()
     {
-        return getName();
+        return String.format("%s; %d; %s; %s", getName(), getReleasYears(), String.join(", ", getCategories()), ratingFormatter.format(getRating()));
     }
 }
