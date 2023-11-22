@@ -44,6 +44,6 @@ public abstract class AMedia implements Media {
     @Override
     public String toString()
     {
-        return getName();
+        return String.format("%s, %s, %s, %s", getName(), getReleasYears(), getCategories(), getRating());
     }
 }
