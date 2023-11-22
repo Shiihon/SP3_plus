@@ -251,6 +251,9 @@ public class MainMenu extends AMenu {
     }
 
     private void logout() {
+        io.saveMediasData("data/userData/" + user.getUserName() + "/watched.txt", user.getWatchedList());
+        io.saveMediasData("data/userData/" + user.getUserName() + "/favourite.txt", user.getFavoriteList());
+
         running = false;
     }
 }
