@@ -9,4 +9,6 @@ public interface IO {
     void saveMediasData(String path, List<Media> media);
 
     void saveUsersData(String path, Map<String, String> users);
+
+    boolean hasDataEntry(String path);
 }
