@@ -44,9 +44,9 @@ public class StartMenu extends AMenu {
     private void login() {
         String userName = ui.getInput("What is your username? ");
 
-        if (!users.containsKey(userName)) {
-            ui.displayMessage("Username does not exist...");
-            login();
+        while (!users.containsKey(userName)) {
+            ui.displayMessage("The entered password is wrong...");
+            userName = ui.getInput("What is your username? ");
         }
 
         String password = ui.getInput("What is your password? ");
@@ -63,9 +63,9 @@ public class StartMenu extends AMenu {
     private void register() {
         String userName = ui.getInput("What should your username be? ");
 
-        if (users.containsKey(userName)) {
+        while (!users.containsKey(userName)) {
             ui.displayMessage("The username does already exist");
-            register();
+            userName = ui.getInput("What is your username? ");
         }
 
         String password = ui.getInput("What should your password be? ");

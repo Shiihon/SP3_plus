@@ -31,17 +31,17 @@ public class FileIO implements IO {
     }
 
     @Override
-    public void saveMediasData(String path, List<Media> media) {
+    public void saveMediasData(String path, List<Media> mediaList) {
         File file = new File(path);
         ensureFileExistence(file);
 
         try {
             FileWriter writer = new FileWriter(file);
-            writer.write("Titel");
-            for (Media mediaList : media) {
-                String title = mediaList.getName();
+            for (Media media : mediaList) {
+                writer.write(media.getClass().getSimpleName() + ", " + media.toString());
 
-                writer.write(title + ", " + mediaList.getReleasYears() + ", " + mediaList.getCategories() + ", " + mediaList.getRating() + "\n");
+                //String title = media.getName();
+                //writer.write(title + ", " + media.getReleasYears() + ", " + media.getCategories() + ", " + media.getRating() + "\n");
             }
             writer.close();
         } catch (IOException e) {
