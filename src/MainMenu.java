@@ -156,17 +156,15 @@ public class MainMenu extends AMenu {
 
     private void showUserWatchedList() {
 
-        ui.displayMessage("This is all your watched movies and series");
-        List<Media> searchMatches = new ArrayList<>();
-
-        for (Media watched : user.getWatchedList()) {
-            searchMatches.add(watched);
+        List<Media> choosenMovie = user.getWatchedList();
+        List<String> movies = new ArrayList<>();
+        for (Media media : medias) {
+            movies.add(media.getName());
         }
+        int userChoice = ui.getChoice("Which movie would you like to choose?", movies);
+        Media media = medias.get(userChoice - 1);
 
-
-        //chooseMedia();
-
-
+        chooseMedia(media);
     }
 
     private void showUserFavoritesList() {
