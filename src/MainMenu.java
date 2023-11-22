@@ -46,6 +46,8 @@ public class MainMenu extends AMenu {
             options.add("Search for medias in category");
             options.add("Logout");
 
+            ui.displayMessage("");
+
             int choice = ui.getChoice("What would you like to do? ", options);
 
             switch (choice) {
@@ -72,7 +74,7 @@ public class MainMenu extends AMenu {
     }
 
     private void search() {
-        String theSearch = ui.getInput("Search for a movie or series: ");
+        String theSearch = ui.getInput("\nSearch for a movie or series: ");
 
         boolean mediaFound = false;
         Media media = null;
@@ -88,19 +90,19 @@ public class MainMenu extends AMenu {
             chooseMedia(media);
         } else {
 
-            ui.displayMessage("The movie or series " + theSearch + " isn't on our platform");
+            ui.displayMessage("\nThe movie or series " + theSearch + " isn't on our platform");
         }
     }
 
 
     private void searchCategory() {
-        String search = ui.getInput("What category would you like to see? ");
+        String search = ui.getInput("\nWhat category would you like to see? ");
         List<Media> searchMatches = new ArrayList<>();
 
         for (Media media : medias) {
             for (String category : media.getCategories()) {
                 if (category.equalsIgnoreCase(search)) {
-                    ui.displayMessage("We have: " + media.getName() + " " + media.getReleasYears() + " " + media.getRating() + "\n");
+                    ui.displayMessage("\nWe have: " + media.getName() + " " + media.getReleasYears() + " " + media.getRating() + "\n");
                     searchMatches.add(media);
                     break;
                 }
@@ -108,7 +110,7 @@ public class MainMenu extends AMenu {
         }
 
         if (searchMatches.size() == 0) {
-            ui.displayMessage("We dont have any movies or series with that category");
+            ui.displayMessage("\nWe dont have any movies or series with that category");
             searchCategory();
         } else {
 
@@ -117,7 +119,7 @@ public class MainMenu extends AMenu {
                 options.add(media.getName());
             }
 
-            int input = ui.getChoice("What would you like to watch? ", options);
+            int input = ui.getChoice("\nWhat would you like to watch? ", options);
             Media media = searchMatches.get(input - 1);
 
             chooseMedia(media);
@@ -129,7 +131,7 @@ public class MainMenu extends AMenu {
         for (Media media : medias) {
             chosenMovie.add(media.getName());
         }
-        int userChoice = ui.getChoice("Which movie would you like to choose?", chosenMovie);
+        int userChoice = ui.getChoice("\nWhich media would you like to choose?", chosenMovie);
         Media media = medias.get(userChoice - 1);
 
         chooseMedia(media);
@@ -142,7 +144,7 @@ public class MainMenu extends AMenu {
         for (Media media : showMovies) {
             movies.add(media.getName());
         }
-        int userChoice = ui.getChoice("Which movie would you like to choose?", movies);
+        int userChoice = ui.getChoice("\nWhich media would you like to choose?", movies);
         Media media = medias.get(userChoice - 1);
 
         chooseMedia(media);
@@ -153,9 +155,9 @@ public class MainMenu extends AMenu {
 
         if (!favoriteList.contains(media)) {
             favoriteList.add(media);
-            ui.displayMessage(media.getName() + " has been added to your favorite list.");
+            ui.displayMessage("\n" + media.getName() + " has been added to your favorite list.");
         } else {
-            ui.displayMessage("The chosen movie does already exist in your favorite list.");
+            ui.displayMessage("\n" + "The chosen media does already exist in your favorite list.");
         }
     }
 
@@ -164,9 +166,9 @@ public class MainMenu extends AMenu {
 
         if (favoriteList.contains(media)) {
             favoriteList.remove(media);
-            ui.displayMessage(media.getName() + " has been removed from your favorite list.");
+            ui.displayMessage("\n" + media.getName() + " has been removed from your favorite list.");
         } else {
-            ui.displayMessage("The chosen movie does not exist in your favorite list.");
+            ui.displayMessage("\n" + "The chosen media does not exist in your favorite list.");
         }
     }
 
@@ -175,7 +177,7 @@ public class MainMenu extends AMenu {
         options.add("Play");
         options.add("Add to favorites");
         options.add("Remove form favorites");
-        int choice = ui.getChoice("What do you wanna do? ", options);
+        int choice = ui.getChoice("\n" + "What do you wanna do? ", options);
 
         switch (choice) {
             case 1:
@@ -188,6 +190,7 @@ public class MainMenu extends AMenu {
                 removeFromFavourites(media);
                 break;
         }
+        ui.displayMessage("");
     }
 
     public void playMedia(Media media) {
@@ -205,7 +208,7 @@ public class MainMenu extends AMenu {
         for (Media media : choosenMovie) {
             movies.add(media.getName());
         }
-        int userChoice = ui.getChoice("Which movie would you like to choose?", movies);
+        int userChoice = ui.getChoice("\n" + "Which media would you like to choose?", movies);
         Media media = medias.get(userChoice - 1);
 
         chooseMedia(media);
