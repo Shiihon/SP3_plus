@@ -36,7 +36,7 @@ public class FileIO implements IO {
         try {
             FileWriter writer = new FileWriter(file);
             for (Media media : mediaList) {
-                writer.write(media.getClass().getSimpleName() + ", " + media);
+                writer.write(media.getClass().getSimpleName() + "; " + media);
             }
             writer.close();
         } catch (IOException e) {
