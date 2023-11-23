@@ -23,7 +23,7 @@ public class StreamingService {
         running = true;
 
         while (running) {
-            ui.displayMessage("\n" + "Welcome to Netflix and Chill" + "\n");
+            ui.displayMessage("\nWelcome to Netflix and Chill\n");
 
             startMenu.setup();
 
