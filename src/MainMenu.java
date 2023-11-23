@@ -95,7 +95,6 @@ public class MainMenu extends AMenu {
         }
     }
 
-
     private void searchCategory() {
         ui.displayMessage("\nWe have categories like: Crime, Comedy, Drama, Romance and much more.");
         String search = ui.getInput("What category would you like to see? ");
@@ -112,7 +111,7 @@ public class MainMenu extends AMenu {
 
         ui.displayMessage("");
 
-        if (searchMatches.size() == 0) {
+        if (searchMatches.isEmpty()) {
             ui.displayMessage("\nWe don't have any media with that category");
             String input = ui.getChoiceYN("Do you wish to search for a different category? ");
 
@@ -195,6 +194,7 @@ public class MainMenu extends AMenu {
         options.add("Add to favorites");
         options.add("Remove form favorites");
         options.add("Quit");
+
         int choice = ui.getChoice("\nWhat do you wanna do? ", options);
 
         switch (choice) {
