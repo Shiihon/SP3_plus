@@ -248,7 +248,7 @@ public class MainMenu extends AMenu {
         }
     }
 
-    public void playMedia(Media media) {
+    private void playMedia(Media media) {
         if (!user.getWatchedList().contains(media)) {
             user.getWatchedList().add(media);
         }
