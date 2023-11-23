@@ -20,7 +20,7 @@ public class StreamingService {
         running = true;
 
         while (running) {
-            ui.displayMessage("Welcome to Chad-Dave-Steve&Mark-Flix#Pump");
+            ui.displayMessage("\n" + "Welcome to Netflix and Chill" + "\n");
 
             startMenu.setup();
 
