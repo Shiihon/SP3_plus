@@ -114,13 +114,7 @@ public class MainMenu extends AMenu {
             ui.displayMessage("\nWe dont have any movies or series with that category");
             searchCategory();
         } else {
-
-            List<String> options = new ArrayList<>();
-            for (Media media : searchMatches) {
-                options.add(media.getName());
-            }
-
-            int input = ui.getChoice("\n" + "Which media would you like to choose? ", options);
+            int input = ui.getChoice("\n" + "Which media would you like to choose? ", searchMatches);
             Media media = searchMatches.get(input - 1);
 
             ui.displayMessage("");
@@ -215,12 +209,7 @@ public class MainMenu extends AMenu {
         if (chosenMovie.isEmpty()) {
             ui.displayMessage("\n" + "your watchlist is currently empty");
         } else{
-
-            List<String> movies = new ArrayList<>();
-            for (Media media : chosenMovie) {
-                movies.add(media.getName());
-            }
-            int userChoice = ui.getChoice("\n" + "Which media would you like to choose?", movies);
+            int userChoice = ui.getChoice("\n" + "Which media would you like to choose?", chosenMovie);
             Media media = chosenMovie.get(userChoice - 1);
 
             chooseMedia(media);
@@ -243,6 +232,7 @@ public class MainMenu extends AMenu {
         }
 
         List<String> series = io.readData("data/100bedsteserier.txt");
+
         for (String line : series) {
             addMedia(createMedia(line, "Series"));
         }
