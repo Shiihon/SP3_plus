@@ -19,9 +19,7 @@ public class MainMenu extends AMenu {
 
     @Override
     public void setup() {
-        loadMedia();
-
-        ui.displayMessage("\n" + "Welcome " + user.getUserName());
+        ui.displayMessage("\n" + "Welcome " + user.getUserName() + "!");
 
         runMainMenuLoop();
     }
@@ -81,7 +79,7 @@ public class MainMenu extends AMenu {
         if (mediaFound) {
             chooseMedia(media);
         } else {
-            ui.displayMessage("\nThe movie or series " + theSearch + " isn't on our platform");
+            ui.displayMessage("\nThe specified media " + theSearch + " is not on our platform.");
             String input = ui.getChoiceYN("Do you wish to search for something else? ");
 
             switch (input) {
@@ -120,7 +118,7 @@ public class MainMenu extends AMenu {
         ui.displayMessage("");
 
         if (searchMatches.isEmpty()) {
-            ui.displayMessage("\nWe don't have any media with that category");
+            ui.displayMessage("\nWe don't have any media with that category.");
             String input = ui.getChoiceYN("Do you wish to search for a different category? ");
 
             switch (input) {
@@ -156,7 +154,7 @@ public class MainMenu extends AMenu {
         }
         showMedia.add("Quit");
 
-        int userChoice = ui.getChoice("\nWhich media would you like to choose?", showMedia);
+        int userChoice = ui.getChoice("\nWhich media would you like to choose? ", showMedia);
         if (userChoice != showMedia.size()) {
             Media media = medias.get(userChoice - 1);
             chooseMedia(media);
@@ -167,10 +165,10 @@ public class MainMenu extends AMenu {
         List<Media> chosenMovie = user.getWatchedList();
 
         if (chosenMovie.isEmpty()) {
-            ui.displayMessage("\nYour watchlist is currently empty");
+            ui.displayMessage("\nYour watchlist is currently empty.");
         } else {
             List<String> options = new ArrayList<>();
-            for(Media media : chosenMovie){
+            for (Media media : chosenMovie) {
                 options.add(media.toString());
             }
             options.add("Quit");
@@ -186,10 +184,10 @@ public class MainMenu extends AMenu {
         List<Media> showMovies = user.getFavoriteList();
 
         if (showMovies.isEmpty()) {
-            ui.displayMessage("\nYour favorite list is currently empty");
+            ui.displayMessage("\nYour favorite list is currently empty.");
         } else {
             List<String> options = new ArrayList<>();
-            for(Media media : showMovies){
+            for (Media media : showMovies) {
                 options.add(media.toString());
             }
             options.add("Quit");
@@ -197,7 +195,7 @@ public class MainMenu extends AMenu {
             ui.displayMessage("");
             int userChoice = ui.getChoice("\nWhich media would you like to choose? ", showMovies);
 
-            if(userChoice != options.size()) {
+            if (userChoice != options.size()) {
                 Media media = showMovies.get(userChoice - 1);
                 chooseMedia(media);
             }
@@ -227,7 +225,7 @@ public class MainMenu extends AMenu {
     }
 
     private void chooseMedia(Media media) {
-        ui.displayMessage("\nYou have picked: " + media.getName() + "\n");
+        ui.displayMessage("\nYou have picked: " + media.getName() + ".\n");
 
         List<String> options = new ArrayList<>();
         options.add("Play");
@@ -269,20 +267,29 @@ public class MainMenu extends AMenu {
     public void loadMedia() {
         categorySet.clear();
 
-        List<String> movies = io.readData("data/100bedstefilm.txt");
+        if (io.hasDataEntry("data/100bedstefilm.txt")) {
+            List<String> movies = io.readData("data/100bedstefilm.txt");
 
-        for (String line : movies) {
-            addMedia(createMedia(line, "Movie"));
+            for (String line : movies) {
+                addMedia(createMedia(line, Movie.class));
+            }
         }
 
-        List<String> series = io.readData("data/100bedsteserier.txt");
+        if (io.hasDataEntry("data/100bedsteserier.txt")) {
+            List<String> series = io.readData("data/100bedsteserier.txt");
 
-        for (String line : series) {
-            addMedia(createMedia(line, "Series"));
+            for (String line : series) {
+                addMedia(createMedia(line, Series.class));
+            }
+        }
+
+        if (medias.isEmpty()) {
+            ui.displayMessage("\nNo media was found in the database. Go touch grass.");
+            ui.displayMessage("Optionally contact an administrator.");
         }
     }
 
-    private Media createMedia(String data, String type) {
+    private Media createMedia(String data, Class<? extends Media> type) {
         String[] mediaData = data.split(";");
         String mediaName = mediaData[0].trim();
         String category = mediaData[2].trim();
@@ -298,11 +305,11 @@ public class MainMenu extends AMenu {
 
         float rating = Float.parseFloat(mediaData[3].trim().replace(",", "."));
 
-        if (type.equalsIgnoreCase("Movie")) {
+        if (type.equals(Movie.class)) {
             int yearOfRelease = Integer.parseInt(mediaData[1].trim());
 
             return new Movie(mediaName, rating, yearOfRelease, categoryList);
-        } else if (type.equalsIgnoreCase("Series")) {
+        } else if (type.equals(Series.class)) {
             String runningYears = mediaData[1].trim();
             String[] runningYearData = runningYears.split("-");
             int releaseYear = Integer.parseInt(runningYearData[0].trim());
