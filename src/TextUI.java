@@ -17,7 +17,6 @@ public class TextUI {
 
     public int getChoice(String msg, List<?> options) {
         displayOptions(options);
-
         String input = getInput(msg);
 
         try {
@@ -48,7 +47,9 @@ public class TextUI {
 
     public void displayOptions(List<?> options) {
         for (int i = 0; i < options.size(); i++) {
-            displayMessage("[" + (i+1) + "] " + options.get(i));
+            Object option = options.get(i);
+
+            displayMessage("[" + (i+1) + "] " + option);
         }
     }
 
