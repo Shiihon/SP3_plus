@@ -87,7 +87,7 @@ public class StartMenu extends AMenu {
 
         while (!validatePassword(password)) {
             if (!validatePassword(password)) {
-                ui.displayMessage(String.format("The password must contain at least %d lowercase characters, %d uppercase characters, %d numeric characters and %d symbols", MIN_LOWERCASE_COUNT, MIN_UPPERCASE_COUNT, MIN_NUMERIC_COUNT, MIN_SYMBOL_COUNT));
+                ui.displayMessage(String.format("The password must contain at least %s", getPasswordRequirements()));
             }
 
             password = ui.getInput("What should your password be? ");
@@ -220,5 +220,49 @@ public class StartMenu extends AMenu {
 
     public void saveUsers() {
         io.saveUsersData("data/users.txt", users);
+    }
+
+    private String getPasswordRequirements() {
+        List<String> requirements = new ArrayList<>();
+
+        if (MIN_LOWERCASE_COUNT > 0) {
+            String str = MIN_LOWERCASE_COUNT + " lowercase character";
+
+            if (MIN_LOWERCASE_COUNT > 1) {
+                str += "s";
+            }
+
+            requirements.add(str);
+        }
+        if (MIN_UPPERCASE_COUNT > 0) {
+            String str = MIN_UPPERCASE_COUNT + " uppercase character";
+
+            if (MIN_UPPERCASE_COUNT > 1) {
+                str += "s";
+            }
+
+            requirements.add(str);
+        }
+        if (MIN_NUMERIC_COUNT > 0) {
+            String str = MIN_NUMERIC_COUNT + " numeric character";
+
+            if (MIN_NUMERIC_COUNT > 1) {
+                str += "s";
+            }
+
+            requirements.add(str);
+        }
+        if (MIN_SYMBOL_COUNT > 0) {
+            String str = MIN_SYMBOL_COUNT + " symbol";
+
+            if (MIN_SYMBOL_COUNT > 1) {
+                str += "s";
+            }
+
+            requirements.add(str);
+        }
+
+        String lastRequirement = requirements.removeLast();
+        return String.join(", ", requirements) + " and " + lastRequirement;
     }
 }
