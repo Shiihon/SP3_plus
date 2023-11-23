@@ -140,14 +140,18 @@ public class MainMenu extends AMenu {
     private void showUserFavoritesList() {
         List<Media> showMovies = user.getFavoriteList();
 
-        List<String> movies = new ArrayList<>();
-        for (Media media : showMovies) {
-            movies.add(media.getName());
-        }
-        int userChoice = ui.getChoice("\nWhich media would you like to choose?", movies);
-        Media media = showMovies.get(userChoice - 1);
+        if (showMovies.isEmpty()) {
+            ui.displayMessage("Your favorite list is currently empty");
+        } else {
+            List<String> movies = new ArrayList<>();
+            for (Media media : showMovies) {
+                movies.add(media.getName());
+            }
+            int userChoice = ui.getChoice("\nWhich media would you like to choose?", movies);
+            Media media = showMovies.get(userChoice - 1);
 
-        chooseMedia(media);
+            chooseMedia(media);
+        }
     }
 
     private void addToFavourites(Media media) {
@@ -204,14 +208,20 @@ public class MainMenu extends AMenu {
     private void showUserWatchedList() {
 
         List<Media> chosenMovie = user.getWatchedList();
-        List<String> movies = new ArrayList<>();
-        for (Media media : chosenMovie) {
-            movies.add(media.getName());
-        }
-        int userChoice = ui.getChoice("\n" + "Which media would you like to choose?", movies);
-        Media media = chosenMovie.get(userChoice - 1);
 
-        chooseMedia(media);
+        if (chosenMovie.isEmpty()) {
+            ui.displayMessage("your watchlist is currently empty");
+        } else{
+
+            List<String> movies = new ArrayList<>();
+            for (Media media : chosenMovie) {
+                movies.add(media.getName());
+            }
+            int userChoice = ui.getChoice("\n" + "Which media would you like to choose?", movies);
+            Media media = chosenMovie.get(userChoice - 1);
+
+            chooseMedia(media);
+        }
     }
 
     public void addMedia(Media media) {
