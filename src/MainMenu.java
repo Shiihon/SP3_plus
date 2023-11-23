@@ -83,13 +83,21 @@ public class MainMenu extends AMenu {
             chooseMedia(media);
         } else {
             ui.displayMessage("\nThe movie or series " + theSearch + " isn't on our platform");
+            String input = ui.getChoiceYN("Do you wish to search for something else? ");
+
+            switch (input) {
+                case "Y":
+                    search();
+                    break;
+                case "N":
+                    break;
+            }
         }
     }
 
-
     private void searchCategory() {
-        ui.displayMessage("We have categories like: Crime, Comedy, Drama, Romance and much more.");
-        String search = ui.getInput("\nWhat category would you like to see? ");
+        ui.displayMessage("\nWe have categories like: Crime, Comedy, Drama, Romance and much more.");
+        String search = ui.getInput("What category would you like to see? ");
         List<Media> searchMatches = new ArrayList<>();
 
         for (Media media : medias) {
@@ -103,11 +111,19 @@ public class MainMenu extends AMenu {
 
         ui.displayMessage("");
 
-        if (searchMatches.size() == 0) {
-            ui.displayMessage("\nWe dont have any movies or series with that category");
-            searchCategory();
+        if (searchMatches.isEmpty()) {
+            ui.displayMessage("\nWe don't have any media with that category");
+            String input = ui.getChoiceYN("Do you wish to search for a different category? ");
+
+            switch (input) {
+                case "Y":
+                    searchCategory();
+                    break;
+                case "N":
+                    break;
+            }
         } else {
-            int input = ui.getChoice("\n" + "Which media would you like to choose? ", searchMatches);
+            int input = ui.getChoice("\nWhich media would you like to choose? ", searchMatches);
             Media media = searchMatches.get(input - 1);
 
             chooseMedia(media);
@@ -133,7 +149,7 @@ public class MainMenu extends AMenu {
         List<Media> chosenMovie = user.getWatchedList();
 
         if (chosenMovie.isEmpty()) {
-            ui.displayMessage("\n" + "your watchlist is currently empty");
+            ui.displayMessage("\nYour watchlist is currently empty");
         } else {
             List<String> options = new ArrayList<>();
             for(Media media : chosenMovie){
@@ -141,7 +157,7 @@ public class MainMenu extends AMenu {
             }
             options.add("Quit");
 
-            int userChoice = ui.getChoice("\n" + "Which media would you like to choose? ", chosenMovie);
+            int userChoice = ui.getChoice("\nWhich media would you like to choose? ", chosenMovie);
             if (userChoice != options.size()) {
                 Media media = chosenMovie.get(userChoice - 1);
                 chooseMedia(media);
@@ -153,7 +169,7 @@ public class MainMenu extends AMenu {
         List<Media> showMovies = user.getFavoriteList();
 
         if (showMovies.isEmpty()) {
-            ui.displayMessage("\n" + "Your favorite list is currently empty");
+            ui.displayMessage("\nYour favorite list is currently empty");
         } else {
             List<String> options = new ArrayList<>();
             for(Media media : showMovies){
@@ -178,7 +194,7 @@ public class MainMenu extends AMenu {
             favoriteList.add(media);
             ui.displayMessage("\n" + media.getName() + " has been added to your favorite list.");
         } else {
-            ui.displayMessage("\n" + "The chosen media does already exist in your favorite list.");
+            ui.displayMessage("\nThe chosen media already exist in your favorite list.");
         }
     }
 
@@ -189,19 +205,20 @@ public class MainMenu extends AMenu {
             favoriteList.remove(media);
             ui.displayMessage("\n" + media.getName() + " has been removed from your favorite list.");
         } else {
-            ui.displayMessage("\n" + "The chosen media does not exist in your favorite list.");
+            ui.displayMessage("\nThe chosen media does not exist in your favorite list.");
         }
     }
 
     private void chooseMedia(Media media) {
-        ui.displayMessage("you have picked: " + media.getName() + "\nThis is your options: ");
+        ui.displayMessage("\nYou have picked: " + media.getName() + "\n");
 
         List<String> options = new ArrayList<>();
         options.add("Play");
         options.add("Add to favorites");
         options.add("Remove form favorites");
         options.add("Quit");
-        int choice = ui.getChoice("\n" + "What do you wanna do? ", options);
+
+        int choice = ui.getChoice("\nWhat do you wanna do? ", options);
 
         switch (choice) {
             case 1:
