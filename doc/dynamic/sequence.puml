@@ -61,9 +61,11 @@ StartMenu : - Map <String, String> users
 StartMenu : - User user
 StartMenu : - IO io
 
+StartMenu : - void runUserDialog()
 StartMenu : - void login()
 StartMenu : - void registerUser ()
-StartMenu : - void runUserDialog()
+StartMenu : - boolean validateUserName(String userName)
+StartMenu : - boolean validatePassword(String password)
 StartMenu : - void loadUser(String userName, String password)
 StartMenu : - Media createMedia(String data)
 StartMenu : + void loadUsers()
@@ -144,9 +146,9 @@ FileIO : - void ensureFileExistence(File file)
 TextUI : - Scanner scanner;
 
 TextUI : + String getInput(String msg)
-TextUI : + String getChoice(String msg, List<String> options)
+TextUI : + String getChoice(String msg, List<?> options)
 TextUI : + String getChoiceYN(String msg)
-TextUI : + void displayOptions(List<String> options)
+TextUI : + void displayOptions(List<?> options)
 TextUI : + void displayMessage(String msg)
 
 @enduml
