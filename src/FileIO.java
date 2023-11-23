@@ -36,7 +36,7 @@ public class FileIO implements IO {
         try {
             FileWriter writer = new FileWriter(file);
             for (Media media : mediaList) {
-                writer.write(media.getClass().getSimpleName() + "; " + media);
+                writer.write(media.getClass().getSimpleName() + "; " + media + "\n");
             }
             writer.close();
         } catch (IOException e) {
@@ -51,7 +51,6 @@ public class FileIO implements IO {
 
         try {
             FileWriter writer = new FileWriter(file);
-            writer.write("Name, Password" + "\n");
             for (Map.Entry<String, String> entry : users.entrySet()) {
                 String userName = entry.getKey();
                 String userPassword = entry.getValue();
