@@ -96,6 +96,7 @@ public class MainMenu extends AMenu {
 
 
     private void searchCategory() {
+        ui.displayMessage("We have categories like: Crime, Comedy, Drama, Romance and much more.");
         String search = ui.getInput("\nWhat category would you like to see? ");
         List<Media> searchMatches = new ArrayList<>();
 
@@ -163,6 +164,8 @@ public class MainMenu extends AMenu {
     }
 
     private void chooseMedia(Media media) {
+        ui.displayMessage("you have picked: " + media.getName() + "\nThis is your options: ");
+
         List<String> options = new ArrayList<>();
         options.add("Play");
         options.add("Add to favorites");
