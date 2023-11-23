@@ -6,12 +6,16 @@ import java.util.Map;
 public class MainMenu extends AMenu {
     private final List<Media> medias;
     private final FileIO io;
-    private boolean running;
     private User user;
+    private boolean running;
 
     public MainMenu() {
         medias = new ArrayList<>();
         io = new FileIO();
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -21,10 +25,6 @@ public class MainMenu extends AMenu {
         ui.displayMessage("\n" + "Welcome " + user.getUserName());
 
         runMainMenuLoop();
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     private void runMainMenuLoop() {
@@ -40,8 +40,6 @@ public class MainMenu extends AMenu {
             options.add("Search for media by name");
             options.add("Search for medias in category");
             options.add("Logout");
-
-            //ui.displayMessage("");
 
             int choice = ui.getChoice("\n" + "What would you like to do? ", options);
 
@@ -103,6 +101,7 @@ public class MainMenu extends AMenu {
                 }
             }
         }
+
         ui.displayMessage("");
 
         if (searchMatches.size() == 0) {
@@ -125,6 +124,19 @@ public class MainMenu extends AMenu {
         Media media = medias.get(userChoice - 1);
 
         chooseMedia(media);
+    }
+
+    private void showUserWatchedList() {
+        List<Media> chosenMovie = user.getWatchedList();
+
+        if (chosenMovie.isEmpty()) {
+            ui.displayMessage("\n" + "your watchlist is currently empty");
+        } else{
+            int userChoice = ui.getChoice("\n" + "Which media would you like to choose? ", chosenMovie);
+            Media media = chosenMovie.get(userChoice - 1);
+
+            chooseMedia(media);
+        }
     }
 
     private void showUserFavoritesList() {
@@ -196,19 +208,6 @@ public class MainMenu extends AMenu {
         }
 
         media.play();
-    }
-
-    private void showUserWatchedList() {
-        List<Media> chosenMovie = user.getWatchedList();
-
-        if (chosenMovie.isEmpty()) {
-            ui.displayMessage("\n" + "your watchlist is currently empty");
-        } else{
-            int userChoice = ui.getChoice("\n" + "Which media would you like to choose? ", chosenMovie);
-            Media media = chosenMovie.get(userChoice - 1);
-
-            chooseMedia(media);
-        }
     }
 
     public void addMedia(Media media) {
