@@ -1,5 +1,4 @@
-import java.util.List;
-import java.util.Objects;
+import java.util.Collection;
 import java.util.Scanner;
 
 public class TextUI {
@@ -15,7 +14,7 @@ public class TextUI {
         return scanner.nextLine();
     }
 
-    public int getChoice(String msg, List<?> options) {
+    public int getChoice(String msg, Collection<?> options) {
         displayOptions(options);
         String input = getInput(msg);
 
@@ -45,11 +44,12 @@ public class TextUI {
         }
     }
 
-    public void displayOptions(List<?> options) {
-        for (int i = 0; i < options.size(); i++) {
-            Object option = options.get(i);
+    public void displayOptions(Collection<?> options) {
+        int count = 1;
 
-            displayMessage("[" + (i+1) + "] " + option);
+        for (Object option : options) {
+            displayMessage("[" + count + "] " + option);
+            count++;
         }
     }
 
