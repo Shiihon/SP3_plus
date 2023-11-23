@@ -72,8 +72,8 @@ public class StartMenu extends AMenu {
     private void register() {
         String userName = ui.getInput("What should your username be? ");
 
-        while (!users.containsKey(userName) || !validateUserName(userName)) {
-            if (!users.containsKey(userName)) {
+        while (users.containsKey(userName) || !validateUserName(userName)) {
+            if (users.containsKey(userName)) {
                 ui.displayMessage("The username already exist");
             }
             if (!validateUserName(userName)) {
@@ -85,8 +85,8 @@ public class StartMenu extends AMenu {
 
         String password = ui.getInput("What should your password be? ");
 
-        while (!validatePassword(userName)) {
-            if (!validateUserName(userName)) {
+        while (!validatePassword(password)) {
+            if (!validatePassword(password)) {
                 ui.displayMessage(String.format("The password must contain at least %d lowercase characters, %d uppercase characters, %d numeric characters and %d symbols", MIN_LOWERCASE_COUNT, MIN_UPPERCASE_COUNT, MIN_NUMERIC_COUNT, MIN_SYMBOL_COUNT));
             }
 
