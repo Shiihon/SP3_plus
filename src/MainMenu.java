@@ -18,7 +18,7 @@ public class MainMenu extends AMenu {
     public void setup() {
         loadMedia();
 
-        ui.displayMessage("Welcome " + user.getUserName());
+        ui.displayMessage("\n" + "Welcome " + user.getUserName());
 
         runMainMenuLoop();
     }
@@ -46,9 +46,9 @@ public class MainMenu extends AMenu {
             options.add("Search for medias in category");
             options.add("Logout");
 
-            ui.displayMessage("");
+            //ui.displayMessage("");
 
-            int choice = ui.getChoice("What would you like to do? ", options);
+            int choice = ui.getChoice("\n" + "What would you like to do? " + "\n", options);
 
             switch (choice) {
                 case 1:
@@ -70,6 +70,7 @@ public class MainMenu extends AMenu {
                     logout();
                     break;
             }
+            ui.displayMessage("");
         }
     }
 
@@ -102,12 +103,12 @@ public class MainMenu extends AMenu {
         for (Media media : medias) {
             for (String category : media.getCategories()) {
                 if (category.equalsIgnoreCase(search)) {
-                    ui.displayMessage("\nWe have: " + media.getName() + " " + media.getReleaseYear() + " " + media.getRating() + "\n");
                     searchMatches.add(media);
                     break;
                 }
             }
         }
+        ui.displayMessage("");
 
         if (searchMatches.size() == 0) {
             ui.displayMessage("\nWe dont have any movies or series with that category");
@@ -119,9 +120,10 @@ public class MainMenu extends AMenu {
                 options.add(media.getName());
             }
 
-            int input = ui.getChoice("\nWhat would you like to watch? ", options);
+            int input = ui.getChoice("\n" + "Which media would you like to choose? ", options);
             Media media = searchMatches.get(input - 1);
 
+            ui.displayMessage("");
             chooseMedia(media);
         }
     }
@@ -141,13 +143,14 @@ public class MainMenu extends AMenu {
         List<Media> showMovies = user.getFavoriteList();
 
         if (showMovies.isEmpty()) {
-            ui.displayMessage("Your favorite list is currently empty");
+            ui.displayMessage("\n" + "Your favorite list is currently empty");
         } else {
             List<String> movies = new ArrayList<>();
             for (Media media : showMovies) {
                 movies.add(media.getName());
             }
-            int userChoice = ui.getChoice("\nWhich media would you like to choose?", movies);
+            ui.displayMessage("");
+            int userChoice = ui.getChoice("\nWhich media would you like to choose?" + "\n", movies);
             Media media = showMovies.get(userChoice - 1);
 
             chooseMedia(media);
@@ -181,7 +184,8 @@ public class MainMenu extends AMenu {
         options.add("Play");
         options.add("Add to favorites");
         options.add("Remove form favorites");
-        int choice = ui.getChoice("\n" + "What do you wanna do? ", options);
+
+        int choice = ui.getChoice("What would you like to do? ", options);
 
         switch (choice) {
             case 1:
@@ -194,7 +198,6 @@ public class MainMenu extends AMenu {
                 removeFromFavourites(media);
                 break;
         }
-        ui.displayMessage("");
     }
 
     public void playMedia(Media media) {
@@ -210,7 +213,7 @@ public class MainMenu extends AMenu {
         List<Media> chosenMovie = user.getWatchedList();
 
         if (chosenMovie.isEmpty()) {
-            ui.displayMessage("your watchlist is currently empty");
+            ui.displayMessage("\n" + "your watchlist is currently empty");
         } else{
 
             List<String> movies = new ArrayList<>();
