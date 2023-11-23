@@ -113,13 +113,7 @@ public class MainMenu extends AMenu {
             ui.displayMessage("\nWe dont have any movies or series with that category");
             searchCategory();
         } else {
-
-            List<String> options = new ArrayList<>();
-            for (Media media : searchMatches) {
-                options.add(media.getName());
-            }
-
-            int input = ui.getChoice("\nWhat would you like to watch? ", options);
+            int input = ui.getChoice("\nWhat would you like to watch? ", searchMatches);
             Media media = searchMatches.get(input - 1);
 
             chooseMedia(media);
@@ -127,11 +121,7 @@ public class MainMenu extends AMenu {
     }
 
     private void showMediaList() {
-        List<String> chosenMovie = new ArrayList<>();
-        for (Media media : medias) {
-            chosenMovie.add(media.getName());
-        }
-        int userChoice = ui.getChoice("\nWhich media would you like to choose?", chosenMovie);
+        int userChoice = ui.getChoice("\nWhich media would you like to choose?", medias);
         Media media = medias.get(userChoice - 1);
 
         chooseMedia(media);
@@ -143,11 +133,7 @@ public class MainMenu extends AMenu {
         if (showMovies.isEmpty()) {
             ui.displayMessage("Your favorite list is currently empty");
         } else {
-            List<String> movies = new ArrayList<>();
-            for (Media media : showMovies) {
-                movies.add(media.getName());
-            }
-            int userChoice = ui.getChoice("\nWhich media would you like to choose?", movies);
+            int userChoice = ui.getChoice("\nWhich media would you like to choose?", showMovies);
             Media media = showMovies.get(userChoice - 1);
 
             chooseMedia(media);
@@ -181,6 +167,7 @@ public class MainMenu extends AMenu {
         options.add("Play");
         options.add("Add to favorites");
         options.add("Remove form favorites");
+        options.add("Quit");
         int choice = ui.getChoice("\n" + "What do you wanna do? ", options);
 
         switch (choice) {
@@ -192,6 +179,8 @@ public class MainMenu extends AMenu {
                 break;
             case 3:
                 removeFromFavourites(media);
+                break;
+            case 4:
                 break;
         }
         ui.displayMessage("");
@@ -212,12 +201,7 @@ public class MainMenu extends AMenu {
         if (chosenMovie.isEmpty()) {
             ui.displayMessage("your watchlist is currently empty");
         } else{
-
-            List<String> movies = new ArrayList<>();
-            for (Media media : chosenMovie) {
-                movies.add(media.getName());
-            }
-            int userChoice = ui.getChoice("\n" + "Which media would you like to choose?", movies);
+            int userChoice = ui.getChoice("\n" + "Which media would you like to choose?", chosenMovie);
             Media media = chosenMovie.get(userChoice - 1);
 
             chooseMedia(media);
@@ -240,6 +224,7 @@ public class MainMenu extends AMenu {
         }
 
         List<String> series = io.readData("data/100bedsteserier.txt");
+
         for (String line : series) {
             addMedia(createMedia(line, "Series"));
         }
