@@ -68,9 +68,10 @@ StartMenu : - boolean validateUserName(String userName)
 StartMenu : - boolean validatePassword(String password)
 StartMenu : - void loadUser(String userName, String password)
 StartMenu : - Media createMedia(String data)
+StartMenu : + User getUser()
+StartMenu : + void setup()
 StartMenu : + void loadUsers()
 StartMenu : + void saveUsers()
-StartMenu : + User getUser()
 
 
 MainMenu : - List <Media> medias
@@ -88,9 +89,10 @@ MainMenu : - void playMedia(Media media)
 MainMenu : - void chooseMedia(Media media)
 MainMenu : - void addToFavorits(Media media)
 MainMenu : - void removeFromFavorits(Media media)
-MainMenu : - void logout()
 MainMenu : - Media createMedia(String data, String type)
+MainMenu : - void logout()
 MainMenu : + void setUser(User user)
+MainMenu : + void setup()
 MainMenu : + void addMedia(Media media) ?
 MainMenu : + void removeMedia(Media media) ?
 MainMenu : + void loadMedia()
@@ -105,6 +107,9 @@ AUser : - String userName
 AUser : - String password
 AUser : - List <Media> watchedMedia
 AUser : - List <Media> favorites
+AUser : + String getUserName()
+AUser : + List <Media> getWatchedList()
+AUser : + List <Media> getFavoriteList()
 
 
 Media : + String getName()
@@ -119,6 +124,10 @@ AMedia : - float rating
 AMedia : - int releasYear
 AMedia : - List<String> categories
 
+AMedia : + String getName()
+AMedia : + float getRating()
+AMedia : + int getReleasYears()
+AMedia : + List<String> getCategories()
 AMedia : + @Override String toString()
 
 
@@ -136,19 +145,23 @@ Movie : + void play()
 
 IO : + List <String> readData(String path)
 IO : + void saveMediaData(String path, List<Media> medias)
-IO : + void saveUsersData(String path, List<User> users)
+IO : + void saveUsersData(String path, Map<String, String> users)
 IO : + boolean hasDataEntry(String path)
 
 
 FileIO : - void ensureFileExistence(File file)
+FileIO : + void List <String> readData(String path)
+FileIO : + void saveMediaData(String path, List<Media> medias)
+FileIO : + void saveUsersData(String path, Map<String, String> users)
+FileIO : + void hasDataEntry(String path)
 
 
 TextUI : - Scanner scanner;
 
 TextUI : + String getInput(String msg)
-TextUI : + String getChoice(String msg, List<?> options)
+TextUI : + String getChoice(String msg, Collection<?> options)
 TextUI : + String getChoiceYN(String msg)
-TextUI : + void displayOptions(List<?> options)
+TextUI : + void displayOptions(Collection<?> options)
 TextUI : + void displayMessage(String msg)
 
 @enduml
