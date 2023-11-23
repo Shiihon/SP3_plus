@@ -8,6 +8,6 @@ public class Movie extends AMedia {
 
     @Override
     public void play() {
-        System.out.println("Playing " + getName() + "...");
+        System.out.println("\n" + "Playing " + getName() + "...");
     }
 }

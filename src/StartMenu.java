@@ -36,7 +36,7 @@ public class StartMenu extends AMenu {
         options.add("Login");
         options.add("Register new user");
         options.add("Quit");
-        int choice = ui.getChoice("What would you like to do? ", options);
+        int choice = ui.getChoice("\n" + "What would you like to do? ", options);
 
         switch (choice) {
             case 1:
@@ -51,10 +51,10 @@ public class StartMenu extends AMenu {
     }
 
     private void login() {
-        String userName = ui.getInput("What is your username? ");
+        String userName = ui.getInput("\n" + "What is your username? ");
 
         while (!users.containsKey(userName)) {
-            ui.displayMessage("The entered password is wrong...");
+            ui.displayMessage("The entered username is wrong...");
             userName = ui.getInput("What is your username? ");
         }
 
