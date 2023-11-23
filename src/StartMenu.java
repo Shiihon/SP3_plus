@@ -55,7 +55,7 @@ public class StartMenu extends AMenu {
         String userName = ui.getInput("\n" + "What is your username? ");
 
         while (!users.containsKey(userName)) {
-            ui.displayMessage("The entered username is wrong...");
+            ui.displayMessage("The entered username does not exist.");
             userName = ui.getInput("What is your username? ");
         }
 
@@ -75,7 +75,7 @@ public class StartMenu extends AMenu {
 
         while (users.containsKey(userName) || !validateUserName(userName)) {
             if (users.containsKey(userName)) {
-                ui.displayMessage("The username already exist.");
+                ui.displayMessage("The entered username already exist.");
             }
             if (!validateUserName(userName)) {
                 ui.displayMessage(String.format("The username must be between %d and %d characters.", MIN_USERNAME_LENGTH, MAX_USERNAME_LENGTH));
@@ -211,7 +211,7 @@ public class StartMenu extends AMenu {
     public void loadUsers() {
         users.clear();
 
-        if (io.hasDataEntry("data/users.txt")) {
+        if (!io.hasDataEntry("data/users.txt")) {
             return;
         }
 
