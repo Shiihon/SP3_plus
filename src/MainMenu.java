@@ -115,10 +115,18 @@ public class MainMenu extends AMenu {
     }
 
     private void showMediaList() {
-        int userChoice = ui.getChoice("\nWhich media would you like to choose? ", medias);
-        Media media = medias.get(userChoice - 1);
+        List<String> showMedia = new ArrayList<>();
 
-        chooseMedia(media);
+        for (Media media : medias) {
+            showMedia.add(media.toString());
+        }
+        showMedia.add("Quit");
+
+        int userChoice = ui.getChoice("\nWhich media would you like to choose?", showMedia);
+        if (userChoice != showMedia.size()) {
+            Media media = medias.get(userChoice - 1);
+            chooseMedia(media);
+        }
     }
 
     private void showUserWatchedList() {
@@ -126,11 +134,18 @@ public class MainMenu extends AMenu {
 
         if (chosenMovie.isEmpty()) {
             ui.displayMessage("\n" + "your watchlist is currently empty");
-        } else{
-            int userChoice = ui.getChoice("\n" + "Which media would you like to choose? ", chosenMovie);
-            Media media = chosenMovie.get(userChoice - 1);
+        } else {
+            List<String> options = new ArrayList<>();
+            for(Media media : chosenMovie){
+                options.add(media.toString());
+            }
+            options.add("Quit");
 
-            chooseMedia(media);
+            int userChoice = ui.getChoice("\n" + "Which media would you like to choose? ", chosenMovie);
+            if (userChoice != options.size()) {
+                Media media = chosenMovie.get(userChoice - 1);
+                chooseMedia(media);
+            }
         }
     }
 
@@ -140,11 +155,19 @@ public class MainMenu extends AMenu {
         if (showMovies.isEmpty()) {
             ui.displayMessage("\n" + "Your favorite list is currently empty");
         } else {
+            List<String> options = new ArrayList<>();
+            for(Media media : showMovies){
+                options.add(media.toString());
+            }
+            options.add("Quit");
+
             ui.displayMessage("");
             int userChoice = ui.getChoice("\nWhich media would you like to choose? ", showMovies);
-            Media media = showMovies.get(userChoice - 1);
 
-            chooseMedia(media);
+            if(userChoice != options.size()) {
+                Media media = showMovies.get(userChoice - 1);
+                chooseMedia(media);
+            }
         }
     }
 
