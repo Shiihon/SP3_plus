@@ -13,6 +13,9 @@ public class StreamingService {
     }
 
     public void start() {
+        startMenu.loadUsers();
+        mainMenu.loadMedia();
+
         loop();
     }
 
