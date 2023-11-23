@@ -31,12 +31,7 @@ public class MainMenu extends AMenu {
         running = true;
 
         while (running) {
-            // Se liste af alle film
-            // Se watch liste
-            // Se favorite liste
-            // Search by name
-            // Search by category
-            // logout
+            ui.displayMessage("");
 
             ArrayList<String> options = new ArrayList<>();
             options.add("See the list of media");
@@ -48,7 +43,7 @@ public class MainMenu extends AMenu {
 
             //ui.displayMessage("");
 
-            int choice = ui.getChoice("\n" + "What would you like to do? " + "\n", options);
+            int choice = ui.getChoice("\n" + "What would you like to do? ", options);
 
             switch (choice) {
                 case 1:
@@ -70,7 +65,6 @@ public class MainMenu extends AMenu {
                     logout();
                     break;
             }
-            ui.displayMessage("");
         }
     }
 
@@ -117,7 +111,6 @@ public class MainMenu extends AMenu {
             int input = ui.getChoice("\n" + "Which media would you like to choose? ", searchMatches);
             Media media = searchMatches.get(input - 1);
 
-            ui.displayMessage("");
             chooseMedia(media);
         }
     }
@@ -127,7 +120,7 @@ public class MainMenu extends AMenu {
         for (Media media : medias) {
             chosenMovie.add(media.getName());
         }
-        int userChoice = ui.getChoice("\nWhich media would you like to choose?", chosenMovie);
+        int userChoice = ui.getChoice("\nWhich media would you like to choose? ", chosenMovie);
         Media media = medias.get(userChoice - 1);
 
         chooseMedia(media);
@@ -144,7 +137,7 @@ public class MainMenu extends AMenu {
                 movies.add(media.getName());
             }
             ui.displayMessage("");
-            int userChoice = ui.getChoice("\nWhich media would you like to choose?" + "\n", movies);
+            int userChoice = ui.getChoice("\nWhich media would you like to choose? ", movies);
             Media media = showMovies.get(userChoice - 1);
 
             chooseMedia(media);
@@ -174,12 +167,14 @@ public class MainMenu extends AMenu {
     }
 
     private void chooseMedia(Media media) {
+        ui.displayMessage("");
+
         List<String> options = new ArrayList<>();
         options.add("Play");
         options.add("Add to favorites");
         options.add("Remove form favorites");
 
-        int choice = ui.getChoice("What would you like to do? ", options);
+        int choice = ui.getChoice("\nWhat would you like to do? ", options);
 
         switch (choice) {
             case 1:
@@ -203,13 +198,12 @@ public class MainMenu extends AMenu {
     }
 
     private void showUserWatchedList() {
-
         List<Media> chosenMovie = user.getWatchedList();
 
         if (chosenMovie.isEmpty()) {
             ui.displayMessage("\n" + "your watchlist is currently empty");
         } else{
-            int userChoice = ui.getChoice("\n" + "Which media would you like to choose?", chosenMovie);
+            int userChoice = ui.getChoice("\n" + "Which media would you like to choose? ", chosenMovie);
             Media media = chosenMovie.get(userChoice - 1);
 
             chooseMedia(media);
