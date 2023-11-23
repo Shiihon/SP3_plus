@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 public class StartMenu extends AMenu {
+    private final int MIN_USERNAME_LENGTH = 4;
+    private final int MAX_USERNAME_LENGTH = 10;
 
     private final int MIN_LOWERCASE_COUNT = 2;
     private final int MIN_UPPERCASE_COUNT = 2;
@@ -27,7 +29,6 @@ public class StartMenu extends AMenu {
     public void setup() {
         user = null;
 
-        loadUsers();
         runUserDialog();
     }
 
@@ -74,10 +75,10 @@ public class StartMenu extends AMenu {
 
         while (users.containsKey(userName) || !validateUserName(userName)) {
             if (users.containsKey(userName)) {
-                ui.displayMessage("The username already exist");
+                ui.displayMessage("The username already exist.");
             }
             if (!validateUserName(userName)) {
-                ui.displayMessage("The username must be between 4 and 10 characters");
+                ui.displayMessage(String.format("The username must be between %d and %d characters.", MIN_USERNAME_LENGTH, MAX_USERNAME_LENGTH));
             }
 
             userName = ui.getInput("What is your username? ");
@@ -87,14 +88,14 @@ public class StartMenu extends AMenu {
 
         while (!validatePassword(password)) {
             if (!validatePassword(password)) {
-                ui.displayMessage(String.format("The password must contain at least %s", getPasswordRequirements()));
+                ui.displayMessage(String.format("The password must contain at least %s.", getPasswordRequirements()));
             }
 
             password = ui.getInput("What should your password be? ");
         }
 
         users.put(userName, password);
-        ui.displayMessage(userName + " has succesfully been registered...");
+        ui.displayMessage(userName + " has successfully been registered...");
 
         loadUser(userName, password);
         saveUsers();
@@ -104,7 +105,7 @@ public class StartMenu extends AMenu {
         if (userName == null || userName.trim().isEmpty()) {
             return false;
         }
-        return (userName.length() >= 4 && userName.length() <= 10);
+        return (userName.length() >= MIN_USERNAME_LENGTH && userName.length() <= MAX_USERNAME_LENGTH);
     }
 
     private boolean validatePassword(String password) {
@@ -176,11 +177,11 @@ public class StartMenu extends AMenu {
 
         float rating = Float.parseFloat(mediaData[4].trim().replace(",", "."));
 
-        if (type.equalsIgnoreCase("Movie")) {
+        if (type.equalsIgnoreCase(Movie.class.getSimpleName())) {
             int yearOfRelease = Integer.parseInt(mediaData[2].trim());
 
             return new Movie(mediaName, rating, yearOfRelease, categoryList);
-        } else if (type.equalsIgnoreCase("Series")) {
+        } else if (type.equalsIgnoreCase(Series.class.getSimpleName())) {
             String runningYears = mediaData[2].trim();
             String[] runningYearData = runningYears.split("-");
             int releaseYear = Integer.parseInt(runningYearData[0].trim());
@@ -208,8 +209,14 @@ public class StartMenu extends AMenu {
     }
 
     public void loadUsers() {
-        List<String> userDataList = io.readData("data/users.txt");
         users.clear();
+
+        if (io.hasDataEntry("data/users.txt")) {
+            return;
+        }
+
+        List<String> userDataList = io.readData("data/users.txt");
+
         for (String line : userDataList) {
             String[] userData = line.split(",");
             String userName = userData[0].trim();
