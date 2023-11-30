@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,8 @@ public class DatabaseIO implements IO {
     public List<String> readData(String path) {
         Connection connection = null;
         PreparedStatement statement = null;
+
+        List<String> data = new ArrayList<>();
 
         try {
             //STEP 1: Register JDBC driver
@@ -28,13 +31,48 @@ public class DatabaseIO implements IO {
 
             ResultSet rs = statement.executeQuery(sql);
 
-            while (rs.next()) {
-                String name = rs.getString("name");
-                int year = rs.getInt("year");
-                String genre = rs.getString("genre");
-                float rating = rs.getFloat("rating");
+            /*while (rs.next()) {
+                ResultSetMetaData rsmd = rs.getMetaData();
+                int numberOfColumns = rsmd.getColumnCount();
+                String[] columnData = new String[numberOfColumns - 1];
 
-                System.out.println(name + " : " + year + " : " + genre + " : " + rating);
+                for (int i = 1; i < numberOfColumns; i++) {
+                    columnData[i - 1] = String.valueOf(rs.getObject(i + 1));
+                }
+
+                data.add(String.join("; ", columnData));
+            }*/
+
+            if (path.equalsIgnoreCase("movies")) {
+                while (rs.next()) {
+                    String name = rs.getString("name");
+                    int year = rs.getInt("year");
+                    String genre = rs.getString("genre");
+                    float rating = rs.getFloat("rating");
+
+                    data.add(name + "; " + year + "; " + genre + "; " + rating);
+                }
+            } else if (path.equalsIgnoreCase("series")) {
+                while (rs.next()) {
+                    String name = rs.getString("name");
+                    int startYear = rs.getInt("startYear");
+                    String endYear = rs.getString("endYear");
+                    if (rs.wasNull()) {
+                        endYear = "";
+                    }
+                    String genre = rs.getString("genre");
+                    float rating = rs.getFloat("rating");
+                    String seasons = rs.getString("seasons");
+
+                    data.add(name + "; " + startYear + "-" + endYear + "; " + genre + "; " + rating + "; " + seasons);
+                }
+            } else if (path.equalsIgnoreCase("users")) {
+                while (rs.next()) {
+                    String name = rs.getString("userName");
+                    String password = rs.getString("password");
+
+                    data.add(name + "; " + password);
+                }
             }
 
             //STEP 5: Clean-up environment
@@ -62,7 +100,7 @@ public class DatabaseIO implements IO {
             }//end finally try
         }//end try
 
-        return null;
+        return data;
     }
 
     @Override
