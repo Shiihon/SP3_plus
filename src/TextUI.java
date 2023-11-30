@@ -14,6 +14,28 @@ public class TextUI {
         return scanner.nextLine();
     }
 
+    public int getNumericInput(String msg) {
+        String input = getInput(msg);
+
+        try {
+            return Integer.parseInt(input.trim());
+        } catch (NumberFormatException ignored) {
+            displayMessage("Please specify a numeric input.");
+            return getNumericInput(msg);
+        }
+    }
+
+    public double getDecimalInput(String msg) {
+        String input = getInput(msg);
+
+        try {
+            return Double.parseDouble(input.trim().replace(",", "."));
+        } catch (NumberFormatException ignored) {
+            displayMessage("Please specify a decimal input.");
+            return getDecimalInput(msg);
+        }
+    }
+
     public int getChoice(String msg, Collection<?> options) {
         displayOptions(options);
         String input = getInput(msg);
