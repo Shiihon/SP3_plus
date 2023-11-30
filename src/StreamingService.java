@@ -5,6 +5,11 @@ public class StreamingService {
     private final TextUI ui;
 
     private boolean running;
+    public static final String pathMovies = "data/100bedstefilm.txt";
+    public static final String pathSeries = "data/100bedsteserier.txt";
+    public static final String pathUserData = "data/users.txt";
+    public static final String pathWatched = "data/userData/{userName}/watched.txt";
+    public static final String pathFavorite = "data/userData/{userName}/favourite.txt";
 
     public StreamingService() {
         startMenu = new StartMenu();

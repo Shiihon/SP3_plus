@@ -67,7 +67,7 @@ public class StartMenu extends AMenu {
             password = ui.getInput("What is your password? ");
         }
 
-        loadUser(userName, password);
+        loadUserData(userName, password);
     }
 
     private void register() {
@@ -97,7 +97,7 @@ public class StartMenu extends AMenu {
         users.put(userName, password);
         ui.displayMessage(userName + " has successfully been registered...");
 
-        loadUser(userName, password);
+        loadUserData(userName, password);
         saveUsers();
     }
 
@@ -140,19 +140,19 @@ public class StartMenu extends AMenu {
         return lowerCaseLetters >= MIN_LOWERCASE_COUNT && upperCaseLetters >= MIN_UPPERCASE_COUNT && numbers >= MIN_NUMERIC_COUNT && symbols >= MIN_SYMBOL_COUNT;
     }
 
-    private void loadUser(String userName, String password) {
+    private void loadUserData(String userName, String password) {
         User user = new RegularUser(userName, password);
 
-        if (io.hasDataEntry("data/userData/" + user.getUserName() + "/watched.txt")) {
-            List<String> userWatchList = io.readData("data/userData/" + user.getUserName() + "/watched.txt");
+        if (io.hasDataEntry(StreamingService.pathWatched.replace("{userName}", user.getUserName()))) {
+            List<String> userWatchList = io.readData(StreamingService.pathWatched.replace("{userName}", user.getUserName()));
 
             for (String line : userWatchList) {
                 user.getWatchedList().add(createMedia(line));
             }
         }
 
-        if (io.hasDataEntry("data/userData/" + user.getUserName() + "/favourite.txt")) {
-            List<String> userWatchList = io.readData("data/userData/" + user.getUserName() + "/favourite.txt");
+        if (io.hasDataEntry(StreamingService.pathFavorite.replace("{userName}", user.getUserName()))) {
+            List<String> userWatchList = io.readData(StreamingService.pathFavorite.replace("{userName}", user.getUserName()));
 
             for (String line : userWatchList) {
                 user.getFavoriteList().add(createMedia(line));
@@ -211,11 +211,11 @@ public class StartMenu extends AMenu {
     public void loadUsers() {
         users.clear();
 
-        if (!io.hasDataEntry("data/users.txt")) {
+        if (!io.hasDataEntry(StreamingService.pathUserData)) {
             return;
         }
 
-        List<String> userDataList = io.readData("data/users.txt");
+        List<String> userDataList = io.readData(StreamingService.pathUserData);
 
         for (String line : userDataList) {
             String[] userData = line.split(",");
@@ -226,7 +226,7 @@ public class StartMenu extends AMenu {
     }
 
     public void saveUsers() {
-        io.saveUsersData("data/users.txt", users);
+        io.saveUsersData(StreamingService.pathUserData, users);
     }
 
     private String getPasswordRequirements() {

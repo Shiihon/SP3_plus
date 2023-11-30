@@ -267,16 +267,16 @@ public class MainMenu extends AMenu {
     public void loadMedia() {
         categorySet.clear();
 
-        if (io.hasDataEntry("data/100bedstefilm.txt")) {
-            List<String> movies = io.readData("data/100bedstefilm.txt");
+        if (io.hasDataEntry(StreamingService.pathMovies)) {
+            List<String> movies = io.readData(StreamingService.pathMovies);
 
             for (String line : movies) {
                 addMedia(createMedia(line, Movie.class));
             }
         }
 
-        if (io.hasDataEntry("data/100bedsteserier.txt")) {
-            List<String> series = io.readData("data/100bedsteserier.txt");
+        if (io.hasDataEntry(StreamingService.pathSeries)) {
+            List<String> series = io.readData(StreamingService.pathSeries);
 
             for (String line : series) {
                 addMedia(createMedia(line, Series.class));
@@ -337,8 +337,12 @@ public class MainMenu extends AMenu {
     }
 
     private void logout() {
-        io.saveMediasData("data/userData/" + user.getUserName() + "/watched.txt", user.getWatchedList());
-        io.saveMediasData("data/userData/" + user.getUserName() + "/favourite.txt", user.getFavoriteList());
+        String watchedP = StreamingService.pathWatched.replace("{userName}", user.getUserName());
+        String favoriteP = StreamingService.pathFavorite.replace("{userName}", user.getUserName());
+
+        io.saveMediasData(watchedP, user.getWatchedList());
+        io.saveMediasData(favoriteP, user.getFavoriteList());
+
 
         running = false;
     }
