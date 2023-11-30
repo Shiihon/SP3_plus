@@ -36,6 +36,8 @@ public class MainMenu extends AMenu {
             options.add("See your favorites list");
             options.add("Search for media by name");
             options.add("Search for medias in category");
+            options.add("Search for medias by release year");
+            options.add("Search for medias by ratings");
             options.add("Logout");
 
             int choice = ui.getChoice("\n" + "What would you like to do? ", options);
@@ -57,6 +59,12 @@ public class MainMenu extends AMenu {
                     searchCategory();
                     break;
                 case 6:
+                    searchReleaseYear();
+                    break;
+                case 7:
+                    searchRating();
+                    break;
+                case 8:
                     logout();
                     break;
             }
@@ -140,6 +148,86 @@ public class MainMenu extends AMenu {
             int input = ui.getChoice("\nWhich media would you like to choose? ", options);
             if (input != options.size()) {
                 Media media = searchMatches.get(input - 1);
+
+                chooseMedia(media);
+            }
+        }
+    }
+
+    private void searchReleaseYear() {
+        int releaseYear = ui.getNumericInput("What release year would you like to search for? ");
+        List<Media> searchMatches = new ArrayList<>();
+
+        for (Media media : medias) {
+            if (media.getReleaseYear() == releaseYear) {
+                searchMatches.add(media);
+            }
+        }
+
+        ui.displayMessage("");
+
+        if (searchMatches.isEmpty()) {
+            ui.displayMessage("\nWe don't have any media released in that year.");
+            String input = ui.getChoiceYN("Do you wish to search for a different release year? ");
+
+            switch (input) {
+                case "Y":
+                    searchReleaseYear();
+                    break;
+                case "N":
+                    break;
+            }
+        } else {
+            List<String> options = new ArrayList<>();
+
+            for (Media media : searchMatches) {
+                options.add(media.toString());
+            }
+
+            options.add("Quit");
+
+            int input = ui.getChoice("\nWhich media would you like to choose? ", options);
+            if (input != options.size()) {
+                Media media = searchMatches.get(input - 1);
+
+                chooseMedia(media);
+            }
+        }
+    }
+
+    private void searchRating() {
+        float input = (float) ui.getDecimalInput("What ratings would you like to see? ");
+        List<Media> searchMatches = new ArrayList<>();
+
+        for (Media media : medias) {
+            if (media.getRating() >= input) {
+                searchMatches.add(media);
+            }
+        }
+
+        if (searchMatches.isEmpty()) {
+            ui.displayMessage("We dont have any movies or series with that rating");
+            String newInput = ui.getChoiceYN("Do you wish to search for a different rating? ");
+
+            switch (newInput) {
+                case "Y":
+                    searchRating();
+                    break;
+                case "N":
+                    break;
+            }
+        } else {
+            List<String> options = new ArrayList<>();
+
+            for (Media media : searchMatches) {
+                options.add(media.toString());
+            }
+
+            options.add("Quit");
+
+            int newInput = ui.getChoice("\nWhich media would you like to choose? ", options);
+            if (newInput != options.size()) {
+                Media media = searchMatches.get(newInput - 1);
 
                 chooseMedia(media);
             }
