@@ -137,20 +137,7 @@ public class MainMenu extends AMenu {
                     break;
             }
         } else {
-            options.clear();
-
-            for (Media media : searchMatches) {
-                options.add(media.toString());
-            }
-
-            options.add("Quit");
-
-            int input = ui.getChoice("\nWhich media would you like to choose? ", options);
-            if (input != options.size()) {
-                Media media = searchMatches.get(input - 1);
-
-                chooseMedia(media);
-            }
+            chooseMedia(searchMatches);
         }
     }
 
@@ -178,20 +165,7 @@ public class MainMenu extends AMenu {
                     break;
             }
         } else {
-            List<String> options = new ArrayList<>();
-
-            for (Media media : searchMatches) {
-                options.add(media.toString());
-            }
-
-            options.add("Quit");
-
-            int input = ui.getChoice("\nWhich media would you like to choose? ", options);
-            if (input != options.size()) {
-                Media media = searchMatches.get(input - 1);
-
-                chooseMedia(media);
-            }
+            chooseMedia(searchMatches);
         }
     }
 
@@ -235,58 +209,26 @@ public class MainMenu extends AMenu {
     }
 
     private void showMediaList() {
-        List<String> showMedia = new ArrayList<>();
-
-        for (Media media : medias) {
-            showMedia.add(media.toString());
-        }
-        showMedia.add("Quit");
-
-        int userChoice = ui.getChoice("\nWhich media would you like to choose? ", showMedia);
-        if (userChoice != showMedia.size()) {
-            Media media = medias.get(userChoice - 1);
-            chooseMedia(media);
-        }
+        chooseMedia(medias);
     }
 
     private void showUserWatchedList() {
-        List<Media> chosenMovie = user.getWatchedList();
+        List<Media> watchedList = user.getWatchedList();
 
-        if (chosenMovie.isEmpty()) {
+        if (watchedList.isEmpty()) {
             ui.displayMessage("\nYour watchlist is currently empty.");
         } else {
-            List<String> options = new ArrayList<>();
-            for (Media media : chosenMovie) {
-                options.add(media.toString());
-            }
-            options.add("Quit");
-            int userChoice = ui.getChoice("\nWhich media would you like to choose? ", chosenMovie);
-            if (userChoice != options.size()) {
-                Media media = chosenMovie.get(userChoice - 1);
-                chooseMedia(media);
-            }
+            chooseMedia(watchedList);
         }
     }
 
     private void showUserFavoritesList() {
-        List<Media> showMovies = user.getFavoriteList();
+        List<Media> favoriteList = user.getFavoriteList();
 
-        if (showMovies.isEmpty()) {
+        if (favoriteList.isEmpty()) {
             ui.displayMessage("\nYour favorite list is currently empty.");
         } else {
-            List<String> options = new ArrayList<>();
-            for (Media media : showMovies) {
-                options.add(media.toString());
-            }
-            options.add("Quit");
-
-            ui.displayMessage("");
-            int userChoice = ui.getChoice("\nWhich media would you like to choose? ", showMovies);
-
-            if (userChoice != options.size()) {
-                Media media = showMovies.get(userChoice - 1);
-                chooseMedia(media);
-            }
+            chooseMedia(favoriteList);
         }
     }
 
@@ -309,6 +251,23 @@ public class MainMenu extends AMenu {
             ui.displayMessage("\n" + media.getName() + " has been removed from your favorite list.");
         } else {
             ui.displayMessage("\nThe chosen media does not exist in your favorite list.");
+        }
+    }
+
+    private void chooseMedia(List<Media> mediaList) {
+        List<String> options = new ArrayList<>();
+
+        for (Media media : mediaList) {
+            options.add(media.toString());
+        }
+
+        options.add("Quit");
+
+        int input = ui.getChoice("\nWhich media would you like to choose? ", options);
+        if (input != options.size()) {
+            Media media = mediaList.get(input - 1);
+
+            chooseMedia(media);
         }
     }
 
