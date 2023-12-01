@@ -10,7 +10,8 @@ public class MainMenu extends AMenu {
     public MainMenu() {
         categorySet = new HashSet<>();
         medias = new ArrayList<>();
-        io = new FileIO();
+        //io = new FileIO();
+        io = new DatabaseIO();
     }
 
     public void setUser(User user) {
@@ -371,12 +372,11 @@ public class MainMenu extends AMenu {
     }
 
     private void logout() {
-        String watchedP = StreamingService.pathWatched.replace("{userName}", user.getUserName());
+        /*String watchedP = StreamingService.pathWatched.replace("{userName}", user.getUserName());
         String favoriteP = StreamingService.pathFavorite.replace("{userName}", user.getUserName());
 
         io.saveMediasData(watchedP, user.getWatchedList());
-        io.saveMediasData(favoriteP, user.getFavoriteList());
-
+        io.saveMediasData(favoriteP, user.getFavoriteList());*/
 
         running = false;
     }

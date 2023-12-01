@@ -18,7 +18,8 @@ public class StartMenu extends AMenu {
 
     public StartMenu() {
         users = new HashMap<>();
-        io = new FileIO();
+        //io = new FileIO();
+        io = new DatabaseIO();
     }
 
     public User getUser() {
@@ -143,7 +144,7 @@ public class StartMenu extends AMenu {
     private void loadUserData(String userName, String password) {
         User user = new RegularUser(userName, password);
 
-        if (io.hasDataEntry(StreamingService.pathWatched.replace("{userName}", user.getUserName()))) {
+        /*if (io.hasDataEntry(StreamingService.pathWatched.replace("{userName}", user.getUserName()))) {
             List<String> userWatchList = io.readData(StreamingService.pathWatched.replace("{userName}", user.getUserName()));
 
             for (String line : userWatchList) {
@@ -157,7 +158,7 @@ public class StartMenu extends AMenu {
             for (String line : userWatchList) {
                 user.getFavoriteList().add(createMedia(line));
             }
-        }
+        }*/
 
         this.user = user;
     }
