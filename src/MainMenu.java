@@ -3,7 +3,7 @@ import java.util.*;
 public class MainMenu extends AMenu {
     private final Set<String> categorySet;
     private final List<Media> medias;
-    private final FileIO io;
+    private final IO io;
     private User user;
     private boolean running;
 
