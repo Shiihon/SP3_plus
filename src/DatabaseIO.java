@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class DatabaseIO implements IO {
 
-    private static final String DB_URL = "jdbc:mysql://localhost/world";
+    private static final String DB_URL = "jdbc:mysql://localhost/streaming_service";
     private static final String USER = "root";
     private static final String PASS = "Cph2023!!";
 
@@ -71,7 +71,7 @@ public class DatabaseIO implements IO {
                     String name = rs.getString("userName");
                     String password = rs.getString("password");
 
-                    data.add(name + "; " + password);
+                    data.add(name + ", " + password);
                 }
             }
 
@@ -110,11 +110,112 @@ public class DatabaseIO implements IO {
 
     @Override
     public void saveUsersData(String path, Map<String, String> users) {
+        Connection connection = null;
+        PreparedStatement statement = null;
 
+        try {
+            //STEP 1: Register JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            //STEP 2: Open a connection
+            System.out.println("Connecting to database...");
+            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            //STEP 3: Execute a query
+            System.out.println("Creating statement...");
+            String sql = "SELECT * FROM streaming_service." + path;
+            statement = connection.prepareStatement(sql);
+
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                String userName = rs.getString("userName");
+
+                users.remove(userName);
+            }
+
+            for (Map.Entry<String, String> entry : users.entrySet()) {
+                sql = "INSERT INTO streaming_service." + path + "(userName, password) VALUES (\"" + entry.getKey() + "\", \"" + entry.getValue() + "\")";
+                statement = connection.prepareStatement(sql);
+
+                statement.execute();
+            }
+
+            //STEP 5: Clean-up environment
+            rs.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (statement != null)
+                    statement.close();
+            } catch (SQLException se2) {
+            }// nothing we can do
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }//end finally try
+        }//end try
     }
 
     @Override
     public boolean hasDataEntry(String path) {
-        return false;
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        boolean hasDataEntry = false;
+
+        try {
+            //STEP 1: Register JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            //STEP 2: Open a connection
+            System.out.println("Connecting to database...");
+            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            //STEP 3: Execute a query
+            System.out.println("Creating statement...");
+            String sql = "SELECT * FROM streaming_service." + path;
+            statement = connection.prepareStatement(sql);
+
+            ResultSet rs = statement.executeQuery(sql);
+
+            hasDataEntry = rs.next();
+
+            //STEP 5: Clean-up environment
+            rs.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (statement != null)
+                    statement.close();
+            } catch (SQLException se2) {
+            }// nothing we can do
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+
+        return hasDataEntry;
     }
 }
