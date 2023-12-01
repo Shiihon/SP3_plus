@@ -191,20 +191,7 @@ public class MainMenu extends AMenu {
                     break;
             }
         } else {
-            List<String> options = new ArrayList<>();
-
-            for (Media media : searchMatches) {
-                options.add(media.toString());
-            }
-
-            options.add("Quit");
-
-            int newInput = ui.getChoice("\nWhich media would you like to choose? ", options);
-            if (newInput != options.size()) {
-                Media media = searchMatches.get(newInput - 1);
-
-                chooseMedia(media);
-            }
+            chooseMedia(searchMatches);
         }
     }
 
